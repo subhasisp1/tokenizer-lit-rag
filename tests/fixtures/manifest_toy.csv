@@ -1,0 +1,6 @@
+record_id,work_id,source,arxiv_id,arxiv_latest_version,openalex_id,doi,title,authors,year,venue,published_version_url,source_url,fulltext_url,license,matched_queries,stage1_result,in_scope,topic,paper_type,reject_reason,fulltext_status,duplicate_of,canonical,in_index,not_indexed_reason,n_chunks
+w1,w1,,,,,,Neural Machine Translation of Rare Words with Subword Units,,2016,ACL,,,,,,,true,,method,,,,true,true,,
+w2,w2,,,,,,SentencePiece: A simple and language independent subword tokenizer,,2018,EMNLP,,,,,,,true,,tool,,,,true,true,,
+w3,w3,,,,,,ByT5: Towards a token-free future with pre-trained byte-to-byte models,,2022,TACL,,,,,,,true,,method,,,,true,true,,
+w4,w4,,,,,,How Good is Your Tokenizer? On the Monolingual Performance of Multilingual Language Models,,2021,ACL,,,,,,,true,,analysis,,,,true,true,,
+w5,w5,,,,,,Between words and characters: A brief history of open-vocabulary modeling and tokenization in NLP,,2021,arXiv,,,,,,,true,,survey,,,,true,true,,
