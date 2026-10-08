@@ -54,13 +54,13 @@ def score(gold, ranked):
             "duprate@5": dup, "distinct_works@5": len(set(works))}
 
 
-def run(questions, retriever, variant, collapse):
+def run(questions, retriever, variant, collapse, max_per_work=None):
     """One row per question: metrics, latency and the top-5 chunk ids."""
     search.retrieve(query_text(questions[0]), retriever, DEPTH, variant, collapse)  # warm-up
     rows = []
     for q in questions:
         t0 = time.perf_counter()
-        ranked = search.retrieve(query_text(q), retriever, DEPTH, variant, collapse)
+        ranked = search.retrieve(query_text(q), retriever, DEPTH, variant, collapse, max_per_work=max_per_work)
         rows.append({"id": q["id"], "retriever": retriever, **score(q["gold"], ranked),
                      "latency_s": round(time.perf_counter() - t0, 4),
                      "top5": "|".join(c["chunk_id"] for c in ranked[:5])})
@@ -123,6 +123,7 @@ def main():
     p.add_argument("--variant", default="canonical", choices=["canonical", "raw"])
     p.add_argument("--collapse", default="r1", choices=["off", "r1", "r1r2r3"])
     p.add_argument("--tau", type=float, default=config.COLLAPSE_TAU)
+    p.add_argument("--max-per-work", type=int, default=config.MAX_PER_WORK, help="R1 cap on passages per work")
     p.add_argument("--device", default="auto", choices=["cpu", "cuda", "auto"])
     p.add_argument("--out", default=config.RESULTS / "retrieval.csv")
     p.add_argument("--bootstrap", type=int, default=10000)
@@ -131,7 +132,7 @@ def main():
     search.DEVICE = a.device
     questions = load_questions(a.questions, a.split)
     print(f"{len(questions)} answerable questions ({a.split})")
-    per_question = {r: run(questions, r, a.variant, a.collapse) for r in a.retrievers.split(",")}
+    per_question = {r: run(questions, r, a.variant, a.collapse, a.max_per_work) for r in a.retrievers.split(",")}
     table = summarize(per_question, a.variant, a.collapse, a.bootstrap)
     out = Path(a.out)
     write_csv(out, table)

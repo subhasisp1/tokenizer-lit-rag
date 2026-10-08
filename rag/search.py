@@ -123,7 +123,7 @@ def collapse(ranked, chunks, max_per_work=config.MAX_PER_WORK, tau=None, emb_loo
 
 
 def retrieve(q, retriever=config.RETRIEVER, k=config.TOP_K, variant="canonical", collapse_mode="r1",
-             want_survey=False):
+             want_survey=False, max_per_work=None):
     """Top k chunk dicts (copies) with "score" and "folded" added."""
     chunks, n = load_chunks(), config.DENSE_CANDIDATES
     model = retriever.removeprefix("hybrid-")
@@ -142,8 +142,8 @@ def retrieve(q, retriever=config.RETRIEVER, k=config.TOP_K, variant="canonical",
                 load_index(d.name, variant)
                 tau, lookup = config.COLLAPSE_TAU, _lookup(d)
             types = _paper_types(config.MANIFEST)
-        kept, folded = collapse(ranked, chunks, tau=tau, emb_lookup=lookup, paper_types=types,
-                                want_survey=want_survey)
+        kept, folded = collapse(ranked, chunks, max_per_work=max_per_work or config.MAX_PER_WORK, tau=tau,
+                                emb_lookup=lookup, paper_types=types, want_survey=want_survey)
     return [dict(chunks[cid], score=s, folded=folded.get(cid, [])) for cid, s in kept[:k]]
 
 
