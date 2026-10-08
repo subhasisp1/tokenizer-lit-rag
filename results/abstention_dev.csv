@@ -1,0 +1,9 @@
+id,type,answerable,best_bge_cosine,best_bm25,question,gated_at_tau
+d01,lookup,True,0.847,14.27,How many entries does the Tibetan vocabulary built with SentencePiece's unigram ,False
+d02,lookup,True,0.8496,22.84,In the Phonemic Tokenizer that factorizes syllables into phonological components,False
+d03,conceptual,True,0.7986,13.3,Why does simply appending domain-specific tokens and their merge rules to a pret,False
+d04,multi,True,0.7976,16.66,"Across studies of multilingual tokenization cost, how does tokenizer fertility r",False
+d05,unanswerable,False,0.7222,11.99,"In the SyllaBPE tokenizer, how is the merge criterion changed so that merges nev",True
+d06,unanswerable,False,0.613,11.62,What fraction of KV-cache entries can the Heavy-Hitter Oracle (H2O) evict withou,True
+d07,unanswerable,False,0.7013,8.26,How much CO2 was emitted while training the o200k tokenizer used by GPT-4o?,True
+d08,unanswerable,False,0.8019,13.23,"Which tokenizer does Llama 5 use, and did Meta enlarge the vocabulary beyond the",False

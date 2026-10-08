@@ -59,5 +59,5 @@ SURVEY_CAP = 1             # R3: surveys allowed in the top 5 unless the questio
 
 # Chat
 ABSTAIN_SENTENCE = "The corpus does not support an answer to this question."
-ABSTAIN_DENSE_TAU = 0.0    # score gate, tuned on the dev split (0 = off)
+ABSTAIN_DENSE_TAU = 0.777  # score gate: lowest answerable dev cosine (0.7976) minus 0.02; scripts/tune_gate.py
 ABSTAIN_BM25_TAU = 0.0
