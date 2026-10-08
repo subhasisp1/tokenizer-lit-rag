@@ -9,7 +9,7 @@ Decisions:
   for scincl, which was trained without one.
 - Every vector is unit length, so cosine similarity is a plain dot product.
 - qwen-or vectors are cut to config.QWEN_DIMS (Matryoshka truncation) and renormalised: 4x less memory
-  for little loss. The hosted run saves partial progress every 20 batches and resumes from it; cost_usd
+  for little loss. The hosted run sends QWEN_WORKERS batches at a time, saves partial progress every 20 batches and resumes from it; cost_usd
   covers this run only (logs/llm_calls.jsonl has every call).
 - bm25 uses bm25s defaults, English stopwords and a Snowball stemmer, over the same `embed_text`.
 - --limit N keeps the first N chunks, for quick checks.
@@ -17,6 +17,7 @@ Decisions:
 import argparse
 import json
 import time
+from concurrent.futures import ThreadPoolExecutor
 from functools import cache
 from pathlib import Path
 
@@ -28,6 +29,7 @@ from rag import config, llm, manifest
 
 QUERY_PREFIX = {"bge": config.BGE_QUERY_PREFIX, "scincl": "", "qwen-or": config.QWEN_QUERY_INSTRUCTION}
 QWEN_BATCH = 32
+QWEN_WORKERS = 8  # concurrent requests; one batch takes 5-18 s at the provider
 STEMMER = Stemmer.Stemmer("english")
 
 
@@ -80,13 +82,14 @@ def embed_qwen(ids, texts, out):
         if done == ids[:len(done)]:
             parts, start = [np.load(out / "partial.npy")], len(done)
             print(f"resuming after {start} chunks")
-    for b, i in enumerate(range(start, len(texts), QWEN_BATCH), 1):
-        v, c = qwen_embed(texts[i:i + QWEN_BATCH])
-        parts.append(v)
-        cost += c
-        if b % 20 == 0:
-            np.save(out / "partial.npy", np.vstack(parts))
-            (out / "partial_ids.txt").write_text("\n".join(ids[:i + QWEN_BATCH]))
+    batches = [texts[i:i + QWEN_BATCH] for i in range(start, len(texts), QWEN_BATCH)]
+    with ThreadPoolExecutor(QWEN_WORKERS) as pool:
+        for b, (v, c) in enumerate(pool.map(qwen_embed, batches), 1):  # map keeps the batch order
+            parts.append(v)
+            cost += c
+            if b % 20 == 0:
+                np.save(out / "partial.npy", np.vstack(parts))
+                (out / "partial_ids.txt").write_text("\n".join(ids[:start + b * QWEN_BATCH]))
     for name in ("partial.npy", "partial_ids.txt"):
         (out / name).unlink(missing_ok=True)
     return np.vstack(parts), cost
