@@ -20,7 +20,7 @@ RANKED = {
 }
 
 
-def fake_retrieve(q, retriever, k, variant, collapse):
+def fake_retrieve(q, retriever, k, variant, collapse, **kw):
     return [dict(CHUNKS[c], score=0.0, folded=[]) for c in RANKED[retriever][q][:k]]
 
 
