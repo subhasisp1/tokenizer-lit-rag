@@ -48,7 +48,7 @@ def load_model(model, device="cpu"):
 
 def qwen_embed(texts):
     """Return (unit vectors cut to QWEN_DIMS, cost_usd)."""
-    vectors, cost = llm.embed(texts, config.EMBED_MODELS["qwen-or"])
+    vectors, cost = llm.embed(texts, config.EMBED_MODELS["qwen-or"], provider=config.QWEN_PROVIDER)
     v = np.asarray(vectors, dtype=np.float32)[:, :config.QWEN_DIMS]
     return v / np.linalg.norm(v, axis=1, keepdims=True), cost
 

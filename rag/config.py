@@ -35,6 +35,7 @@ QWEN_QUERY_INSTRUCTION = (
     "Instruct: Given a question about LLM tokenization research, retrieve passages that answer it\nQuery: "
 )
 QWEN_DIMS = 1024
+QWEN_PROVIDER = "nebius"  # pin one OpenRouter provider so index and query vectors come from the same weights
 
 # Collection
 SEED = 13
