@@ -1,10 +1,7 @@
 # Talk to the literature: a RAG chatbot over LLM tokenizer research
 
 Every number below is printed by `uv run python -m rag.report` from the files under `results/`; the
-commands that produced them are in `README.md`. Two days of work, one public repository, about $3.40 of
-API spend. The write-up follows the order of the brief: corpus, parsing and chunking, versions and
-duplicates, embedding models, the evaluation set, the chatbot, and what is wrong with it.
-
+commands that produced them are in `README.md`. 
 ## 1. Corpus: what counts as a tokenizer paper
 
 **Boundary.** A paper is in scope when its main contribution or main analysis is how text is split into
@@ -134,8 +131,7 @@ few in this corpus (3) for the survey cap to matter.
 Three "ways" as the brief asks, plus BM25 and reciprocal-rank fusion (k = 60) of each dense top-50 with
 the BM25 top-50: `BAAI/bge-base-en-v1.5` (general, local, query prefix), `malteos/scincl` (scientific,
 trained on title-plus-abstract citation pairs, local) and `qwen/qwen3-embedding-8b` through OpenRouter
-(hosted, 1024-d truncation, provider pinned). Vectors are unit-length float32 matrices; no vector
-database. The decision rule was fixed before running: highest Recall@5 on the 30 answerable test
+(hosted, 1024-d truncation, provider pinned). The decision rule was fixed before running: highest Recall@5 on the 30 answerable test
 questions wins; if its interval overlaps a cheaper, faster or local row, that row is taken.
 
 | retriever | Recall@5 | 95% CI | MRR@10 | p95 query (CPU) | index build |
@@ -189,12 +185,11 @@ and marked), then rendered as "Title (Year, Venue), § Section". The first versi
 36 test questions, 10 of them wrongly: 7 times the model refused although the right paper was shown
 and 3 times a score gate tuned on four dev questions fired. Version 2 answers from partial evidence and
 abstains only when nothing bears on the question, uses the cap of 4, and drops the gate (on the dev
-split the prompt alone abstains on all four unanswerable questions and none of the answerable). Both
-runs are kept (`results/answers_v1_cap2_strict.jsonl`, `results/answers.jsonl`).
+split the prompt alone abstains on all four unanswerable questions and none of the answerable). Both runs are kept under `results/`.
 
 A sentence-level judge from a different model family (`google/gemini-2.5-flash`) sees only the shown
 passages and the expected answer. A second, independent labelling pass over 78 sentences from 20 answers
-gives the judge's agreement: on the 62 sentences the two passes could be aligned (11 differed in sentence splitting), they agree on 56 (accuracy 0.90); both find no unsupported sentence, and every disagreement is a sentence the second pass calls partial because the model added an inference to a quoted fact ("performance implications differ by task") while the judge called it supported. Cohen's kappa is near zero here because almost every sentence is "supported" in both passes (chance agreement is 0.9), so the write-up reports the counts rather than kappa; the judge is the more lenient of the two, which means the grounded rates below are an upper bound by a few percent
+gives the judge's agreement: on the 62 sentences the two passes could be aligned (11 differed in sentence splitting), they agree on 56 (accuracy 0.90). Four disagreements are sentences the second pass calls partial because the model added an inference to a quoted fact ("performance implications differ by task") while the judge called them supported; in the other two the judge was the stricter one (one partial, one unsupported). Cohen's kappa is near zero because almost every sentence is "supported" in both passes (chance agreement 0.9), so the counts are reported instead; on balance the judge is slightly the more lenient, so the grounded rates below are an upper bound by a few percent
 
 | fully grounded answers | sentences supported | citation precision | citation coverage | correct / partial / wrong | abstained on 6 unanswerable | false abstentions on 30 | invalid citations | cost per answer | p50 latency |
 |---|---|---|---|---|---|---|---|---|---|
