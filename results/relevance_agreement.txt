@@ -1,0 +1,10 @@
+dev: n=30 precision=0.688 recall=1.000 F1=0.815 accuracy=0.833 (95% Wilson 0.664-0.927)
+  disagree: arxiv:2209.11035 | llm=True human=False | MonoByte: A Pool of Monolingual Byte-level Language Models
+  disagree: arxiv:2311.09325 | llm=True human=False | Temperature-scaling surprisal estimates improve fit to human reading times -- but does it do so for the "right reasons"?
+  disagree: arxiv:2603.28028 | llm=True human=False | Efficient Domain Adaptation for Text Line Recognition via Decoupled Language Models
+  disagree: arxiv:2607.08362 | llm=True human=False | Echoes Across Vietnam's Highlands, Delta, and Coast: A Multilingual Corpus for Cham, Khmer, and Tay-Nung
+  disagree: arxiv:2603.16077 | llm=True human=False | MDM-Prime-v2: Binary Encoding and Index Shuffling Enable Scaling of Diffusion Language Models
+test: n=30 precision=0.923 recall=0.857 F1=0.889 accuracy=0.900 (95% Wilson 0.744-0.965)
+  disagree: arxiv:2604.26355 | llm=False human=True | Shorthand for Thought: Compressing LLM Reasoning via Entropy-Guided Supertokens
+  disagree: arxiv:2604.12377 | llm=True human=False | SCRIPT: A Subcharacter Compositional Representation Injection Module for Korean Pre-Trained Language Models
+  disagree: arxiv:2401.06703 | llm=False human=True | Improved Learned Sparse Retrieval with Corpus-Specific Vocabularies
