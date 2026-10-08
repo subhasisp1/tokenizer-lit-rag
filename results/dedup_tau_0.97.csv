@@ -1,0 +1,2 @@
+retriever,variant,collapse,n,recall@5,recall@5_lo,recall@5_hi,mrr@10,mrr@10_lo,mrr@10_hi,duprate@5,distinct_works@5,p50_s,p95_s,diff_vs_best,diff_lo,diff_hi,wins,losses,index_seconds,index_device,index_cost_usd
+hybrid-bge,canonical,r1r2r3,30,0.5111,0.3472,0.6806,0.5122,0.3456,0.6801,0.28,3.5,0.0114,0.03,0.0,0.0,0.0,0,0,123.44,cuda,0.0

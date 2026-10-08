@@ -1,0 +1,4 @@
+retriever,variant,collapse,n,recall@5,recall@5_lo,recall@5_hi,mrr@10,mrr@10_lo,mrr@10_hi,duprate@5,distinct_works@5,p50_s,p95_s,diff_vs_best,diff_lo,diff_hi,wins,losses,index_seconds,index_device,index_cost_usd
+hybrid-bge,canonical,r1,30,0.5778,0.4111,0.7444,0.5317,0.37,0.6944,0.4178,2.8667,0.013,0.025,-0.0833,-0.2667,0.0917,5,6,123.44,cuda,0.0
+bge,canonical,r1,30,0.4833,0.3165,0.6583,0.4708,0.3056,0.6444,0.41,2.8667,0.0085,0.0181,-0.1778,-0.375,0.0222,5,10,123.44,cuda,0.0
+bm25,canonical,r1,30,0.6611,0.5,0.8111,0.5409,0.3944,0.6873,0.3844,3.0333,0.0005,0.0013,0.0,0.0,0.0,0,0,,,
