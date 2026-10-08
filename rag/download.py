@@ -8,7 +8,8 @@ Decisions:
   often carry ltx_ERROR spans and ltx_missing_label refs, so those do not reject a page.
 - Polite and resumable: our User-Agent, >= config.FILE_DELAY s between requests to one host,
   Retry-After or 2-32 s back-off on 429/503, stop on a 403 from export.arxiv.org. Files on
-  disk are never fetched again, rows with a fulltext_status are skipped, the manifest is saved
+  disk are never fetched again, rows whose recorded file is on disk are skipped (a fresh clone of the
+  committed manifest refetches everything it asks for), the manifest is saved
   every 50 rows, and a row that only met transient errors stays empty so the next run retries.
 - Licence: the "License: ..." line arXiv prints in its HTML, else the manifest's, else a note
   that we hold the files under arXiv's default licence and do not redistribute them.
@@ -156,6 +157,14 @@ def download_row(session, row):
     row["license"] = found or row.get("license") or DEFAULT_LICENSE
 
 
+def on_disk(r):
+    """True when the row's recorded full text is present, so a fresh clone of the manifest refetches it."""
+    tag = f"oa_{r['record_id'][3:]}" if r["source"] == "acl" else f"{r['arxiv_id']}v{r['arxiv_latest_version']}"
+    return r.get("fulltext_status") == "none" or (
+        r.get("fulltext_status") in ("html", "ar5iv") and (HTML_DIR / f"{tag}.html").exists()
+        or r.get("fulltext_status") == "pdf" and (PDF_DIR / f"{tag}.pdf").exists())
+
+
 def is_main(r):
     return (manifest.is_true(r["in_scope"]) and r.get("arxiv_id") and r.get("source") not in EXTRA_LICENSE
             and r.get("not_indexed_reason") != "corpus_cap")
@@ -209,9 +218,9 @@ def main():
     ids = set(a.ids.split(",")) if a.ids else None
     acl_only = [r for r in rows if manifest.is_true(r["in_scope"]) and r.get("source") == "acl"
                 and r.get("fulltext_url") and r.get("not_indexed_reason") != "corpus_cap"
-                and (a.force or not r.get("fulltext_status"))]
+                and (a.force or not on_disk(r))]
     todo = ([r for r in rows if is_main(r) and (ids is None or r["arxiv_id"] in ids)
-             and (a.force or not r.get("fulltext_status"))] + (acl_only if ids is None else []))[:a.limit]
+             and (a.force or not on_disk(r))] + (acl_only if ids is None else []))[:a.limit]
     HTML_DIR.mkdir(parents=True, exist_ok=True)
     PDF_DIR.mkdir(parents=True, exist_ok=True)
     session = make_session()

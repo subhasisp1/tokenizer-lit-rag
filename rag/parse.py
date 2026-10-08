@@ -209,13 +209,19 @@ def tags_to_parse(raw_dir, manifest_path):
     if not Path(manifest_path).exists():
         return sorted({p.stem for p in (raw_dir / "html").glob("*.html")} | {p.stem for p in (raw_dir / "pdf").glob("*.pdf")})
     config.MANIFEST = Path(manifest_path)
-    tags = []
+    tags, missing = [], 0
     for r in manifest.load():
         if r.get("fulltext_status") not in ("html", "ar5iv", "pdf"):
             continue
         kind, rid = r["record_id"].split(":", 1)
-        tags.append(f"{kind}_{rid}" if kind in ("acl", "oa") else rid if re.search(r"v\d+$", rid)
-                    else f"{r['arxiv_id']}v{r['arxiv_latest_version']}")
+        tag = (f"{kind}_{rid}" if kind in ("acl", "oa") else rid if re.search(r"v\d+$", rid)
+               else f"{r['arxiv_id']}v{r['arxiv_latest_version']}")
+        if (raw_dir / "html" / f"{tag}.html").exists() or (raw_dir / "pdf" / f"{tag}.pdf").exists():
+            tags.append(tag)
+        else:
+            missing += 1  # the manifest records a file this clone has not downloaded
+    if missing:
+        print(f"{missing} manifest rows have no downloaded file here (run rag.download for them); parsing {len(tags)}")
     return tags
 
 

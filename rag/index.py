@@ -132,6 +132,8 @@ def main():
     p.add_argument("--limit", type=int)
     a = p.parse_args()
     chunks = load_chunks(a.chunks, a.variant)[:a.limit]
+    if not chunks:
+        raise SystemExit(f"no {a.variant} chunks in {a.chunks}: run rag.download, rag.parse and rag.chunk first")
     device = {"bm25": "cpu", "qwen-or": "openrouter"}.get(a.model) or pick_device(a.device)
     meta = build(chunks, a.model, Path(a.out_root) / a.variant / a.model, device)
     print(f"{a.model}/{a.variant}: n={meta['n']} dims={meta['dims']} seconds={meta['seconds']} "
