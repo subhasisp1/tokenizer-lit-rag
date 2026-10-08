@@ -49,7 +49,7 @@ CHUNK_MAX_TOKENS = 480
 MIN_SECTION_WORDS = 40
 
 # Retrieval
-RETRIEVER = "hybrid-bge"   # set from results/RECOMMENDATION.md after the comparison
+RETRIEVER = "bm25"         # highest Recall@5 and the cheapest row (results/RECOMMENDATION.md); hybrids are within its CI
 DENSE_CANDIDATES = 50
 RRF_K = 60
 TOP_K = 8                  # passages shown to the answer model

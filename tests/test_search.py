@@ -121,7 +121,8 @@ def test_qwen_index_resumes_and_query_gets_instruction(monkeypatch, tmp_path):
     (out / "partial_ids.txt").write_text("\n".join(c["chunk_id"] for c in chunks[:4]))
     fake_embed.calls = []
     meta = index.build(chunks, "qwen-or", out)
-    assert fake_embed.calls[0][0] == chunks[4]["embed_text"]  # resumed after the 4 saved chunks
+    sent = {t for call in fake_embed.calls for t in call}  # batches run concurrently, so check the set
+    assert chunks[4]["embed_text"] in sent and chunks[3]["embed_text"] not in sent  # resumed after the 4 saved
     assert meta["dims"] == config.QWEN_DIMS and meta["n"] == 13 and meta["cost_usd"] == pytest.approx(0.003)
     emb = np.load(out / "emb.npy")
     assert np.allclose(np.linalg.norm(emb, axis=1), 1, atol=1e-3)

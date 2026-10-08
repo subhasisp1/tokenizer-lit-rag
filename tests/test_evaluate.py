@@ -40,8 +40,9 @@ def test_metrics_by_hand(questions):
     # top-5 works w5 w5 w1 w1 w3: slots 2 and 4 repeat a work.
     assert (t1["recall@5"], t1["mrr@10"], t1["first_hit_rank"]) == (1.0, 0.25, 4)
     assert (t1["duprate@5"], t1["distinct_works@5"]) == (0.4, 3)
-    # t2: table quote at rank 2 (hit), metric definition at rank 6 (outside top 5): recall 1/2.
-    assert (t2["recall@5"], t2["mrr@10"], t2["first_hit_rank"]) == (0.5, 0.5, 2)
+    # t2: both gold passages are from one work; the table quote at rank 2 finds it (the metric definition
+    # at rank 6 is outside the top 5): work-level recall 1/1, mrr 1/2.
+    assert (t2["recall@5"], t2["mrr@10"], t2["first_hit_rank"]) == (1.0, 0.5, 2)
     assert (t2["duprate@5"], t2["distinct_works@5"]) == (0.0, 5)
     assert t2["top5"] == "w2-c0|w4-c2|w3-c1|w1-c2|w5-c2"
 
@@ -49,12 +50,12 @@ def test_metrics_by_hand(questions):
 def test_summary_and_paired_comparison(questions):
     per_q = {name: evaluate.run(questions, name, "canonical", "r1") for name in ("worse", "good")}
     worse, good = evaluate.summarize(per_q, "canonical", "r1", 2000)
-    assert (good["recall@5"], good["mrr@10"], good["duprate@5"], good["distinct_works@5"]) == (0.75, 0.375, 0.2, 4.0)
+    assert (good["recall@5"], good["mrr@10"], good["duprate@5"], good["distinct_works@5"]) == (1.0, 0.375, 0.2, 4.0)
     assert (good["diff_vs_best"], good["wins"], good["losses"]) == (0.0, 0, 0)
     # worse: t2 recall 0 and no hit in the top 10.
     assert (worse["recall@5"], worse["mrr@10"]) == (0.5, 0.125)
-    assert (worse["diff_vs_best"], worse["wins"], worse["losses"]) == (-0.25, 0, 1)
-    assert -0.5 <= worse["diff_lo"] <= -0.25 <= worse["diff_hi"] <= 0
+    assert (worse["diff_vs_best"], worse["wins"], worse["losses"]) == (-0.5, 0, 1)  # (0.5 - 1.0) / 2 questions... per question: t1 0, t2 -1
+    assert -1.0 <= worse["diff_lo"] <= -0.5 <= worse["diff_hi"] <= 0
     assert worse["index_seconds"] == ""
 
 
@@ -82,5 +83,5 @@ def test_main_writes_both_csvs(questions, monkeypatch, tmp_path):
     monkeypatch.setattr(search, "DEVICE", search.DEVICE)
     evaluate.main()
     rows = list(csv.DictReader(open(out)))
-    assert [r["retriever"] for r in rows] == ["good", "worse"] and rows[0]["recall@5"] == "0.75"
+    assert [r["retriever"] for r in rows] == ["good", "worse"] and rows[0]["recall@5"] == "1.0"
     assert len(list(csv.DictReader(open(tmp_path / "retrieval_per_question.csv")))) == 4
