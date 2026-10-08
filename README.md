@@ -8,7 +8,7 @@ copies, chunked by section, indexed four ways and evaluated on a frozen, labelle
 numbers and limitations are in [`WRITEUP.md`](WRITEUP.md); every table there is printed by `rag/report.py`
 from the files under `results/`.
 
-## Quickstart (fresh clone, CPU, about 15 minutes)
+## Quickstart (fresh clone, CPU, about 5 minutes)
 
 ```bash
 git clone https://github.com/subhasisp1/tokenizer-lit-rag.git && cd tokenizer-lit-rag
