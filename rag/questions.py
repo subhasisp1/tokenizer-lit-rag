@@ -113,7 +113,7 @@ def sample_docs(n, seed):
     if rows:
         ids = [f"arxiv:{r['arxiv_id']}v{r['arxiv_latest_version']}" if r["arxiv_id"] else r["record_id"]
                for r in rows]
-        paths = [config.PARSED / f"{i.replace(':', '_')}.json" for i in sorted(ids)]
+        paths = [config.parsed_path(i) for i in sorted(ids)]
     else:
         paths = sorted(config.PARSED.glob("*.json"))
     paths = [p for p in paths if p.exists()]

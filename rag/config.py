@@ -16,6 +16,11 @@ RESULTS = ROOT / "results"
 DOCS = ROOT / "docs"
 LOGS = ROOT / "logs"
 
+
+def parsed_path(doc_id):
+    """data/parsed file for a document id; ':' and '/' (old arXiv ids like cmp-lg/9702003) are not file-safe."""
+    return PARSED / (doc_id.replace(":", "_").replace("/", "_") + ".json")
+
 # Models (all hosted ones go through OpenRouter)
 CLASSIFIER_MODEL = "google/gemini-2.5-flash"  # flash-lite over-included on a 40-paper dry run (2026-10-08)
 ANSWER_MODEL = "anthropic/claude-haiku-4.5"

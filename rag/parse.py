@@ -1,4 +1,4 @@
-"""Turn each downloaded paper into section-aware JSON: data/parsed/<doc_id with : as _>.json.
+"""Turn each downloaded paper into section-aware JSON: data/parsed/<doc_id>.json (see config.parsed_path).
 
 Decisions:
 - arXiv's LaTeXML HTML is parsed first (bs4 + lxml): it keeps headings, tables and the LaTeX of every
@@ -242,13 +242,16 @@ def main():
     config.PARSED.mkdir(parents=True, exist_ok=True)
     done, failed, n_low = [], [], 0
     for tag in tags:
+        if any(config.parsed_path(d).exists() for d in (ids_for(tag)[0],)):
+            print(f"{tag}: already parsed")
+            continue
         doc, low = parse_tag(a.raw_dir, tag)
         n_low += low
         if doc is None or is_low(doc):
             failed.append(tag)
             print(f"{tag}: FAILED")
             continue
-        out = config.PARSED / f"{doc['doc_id'].replace(':', '_')}.json"  # no colon: Windows-safe
+        out = config.parsed_path(doc["doc_id"])
         out.write_text(json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
         done.append(doc)
         print(f"{tag}: {doc['parser']} sections={len(doc['sections'])} words={doc['body_words']} "

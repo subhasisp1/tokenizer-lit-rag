@@ -87,7 +87,7 @@ def surnames(row):
 def body_words(row):
     """body_words of the row's parsed document, 0 if it was not parsed."""
     doc_id = f"arxiv:{row['arxiv_id']}v{row['arxiv_latest_version']}" if row["source"] == "arxiv" else row["record_id"]
-    path = config.PARSED / f"{doc_id.replace(':', '_')}.json"
+    path = config.parsed_path(doc_id)
     return json.loads(path.read_text())["body_words"] if path.exists() else 0
 
 
