@@ -36,7 +36,7 @@ ARXIV_DIR = config.CACHE / "arxiv"
 CANDIDATE_FILES = [ARXIV_DIR / "candidates.jsonl", config.CACHE / "acl" / "candidates.jsonl"]
 SAMPLE = config.DATA / "relevance_sample.csv"
 BOUNDARY = config.DOCS / "boundary.md"
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v3"  # v1 accepted corpus-statistics papers; v2 added a decision rule; v3 qualified "character-level models"
 
 SEEDS = ["1508.07909", "1609.08144", "1804.10959", "1808.06226", "1910.13267", "2004.03720",
          "2012.15613", "2103.06874", "2105.13626", "2106.12672", "2112.10508", "2305.07185",

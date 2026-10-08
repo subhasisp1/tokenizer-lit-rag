@@ -17,7 +17,7 @@ DOCS = ROOT / "docs"
 LOGS = ROOT / "logs"
 
 # Models (all hosted ones go through OpenRouter)
-CLASSIFIER_MODEL = "google/gemini-2.5-flash-lite"
+CLASSIFIER_MODEL = "google/gemini-2.5-flash"  # flash-lite over-included on a 40-paper dry run (2026-10-08)
 ANSWER_MODEL = "anthropic/claude-haiku-4.5"
 JUDGE_MODEL = "google/gemini-2.5-flash"
 EMBED_MODELS = {
