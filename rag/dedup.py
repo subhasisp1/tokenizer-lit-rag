@@ -250,7 +250,7 @@ def canonical(thresholds):
             if r is canon:
                 capped = r["not_indexed_reason"] == "corpus_cap"
                 r.update(canonical="true", duplicate_of="", in_index=str(full and not capped).lower(),
-                         not_indexed_reason="no_fulltext" if not full else "corpus_cap" if capped else "")
+                         not_indexed_reason="corpus_cap" if capped else "no_fulltext" if not full else "")
             else:
                 keep = r["source"] in ("arxiv_v1", "acl_copy") and r["duplicate_of"]
                 r.update(canonical="false", in_index="false", duplicate_of=keep or canon["record_id"],
