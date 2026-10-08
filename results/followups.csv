@@ -1,0 +1,25 @@
+id,form,recall@5,mrr@10,query
+t26,raw,0.0,0.0,Did they also check which one does better on downstream tasks after pretraining?
+t26,concat,0.0,0.0,"How do BPE and unigram LM tokenization differ in the way they build their vocabularies, and which one yields subword units that line up better with morphology? Did they also check which one does better on downstream tasks after pretraining?"
+t26,rewrite,0.0,0.1,How do BPE and unigram LM tokenization differ in downstream task performance after pretraining?
+t26,standalone,1.0,1.0,"In the study comparing BPE and unigram LM tokenization for language model pretraining, which tokenization gave better downstream task performance after fine-tuning?"
+t27,raw,1.0,0.5,How much of that is just because the French translations are longer?
+t27,concat,0.0,0.0,"Across the seven tokenizers measured in the study of token premiums for French, how many more tokens does French need than English? How much of that is just because the French translations are longer?"
+t27,rewrite,1.0,0.5,How much of the token premium for French compared to English is attributable to French translations being longer in character count?
+t27,standalone,1.0,1.0,"In the study of French token premiums across LLM tokenizers, how does the French premium decompose into the character-length ratio of the translations and the per-character token ratio?"
+t28,raw,0.0,0.0,Which combination of BPE model and vocabulary source produced that best result?
+t28,concat,0.0,0.0,"In the systematic study of vocabulary and BPE settings for fine-tuning an NMT model on in-domain data, how many BLEU points did the best fine-tuned model gain over the baseline? Which combination of BPE model and vocabulary source produced that best result?"
+t28,rewrite,0.0,0.0,systematic study of vocabulary and BPE settings for fine-tuning NMT model on in-domain data best fine-tuned model BLEU improvement baseline
+t28,standalone,1.0,0.25,"In the systematic study of vocabulary and BPE settings for fine-tuning NMT in-domain, which combination of BPE-model source and vocabulary source gave the best fine-tuned model?"
+t29,raw,0.0,0.0,Does it also recover the original answers that the edit was supposed to remove?
+t29,concat,0.0,0.0,"In the study of tokenization bypassing knowledge editing and unlearning, what F1 score does the Toketive attack reach for detecting edited facts? Does it also recover the original answers that the edit was supposed to remove?"
+t29,rewrite,0.0,0.0,Toketive attack's ability to recover original answers that the edit was supposed to remove
+t29,standalone,0.0,0.0,"In the Toketive study of tokenization bypassing knowledge editing and unlearning, what top-5 accuracy does Toketive reach in recovering pre-update responses?"
+t30,raw,1.0,0.5,Is any order information left when the shuffling is done after segmentation instead?
+t30,concat,1.0,0.3333333333333333,"In the work on shuffled language models, why do models trained on text shuffled before subword segmentation still pick up word-order information? Is any order information left when the shuffling is done after segmentation instead?"
+t30,rewrite,1.0,0.5,Why is order information preserved when text shuffling is applied after subword segmentation instead of before?
+t30,standalone,1.0,0.3333333333333333,"In the work on shuffled language models, is any word-order information preserved when shuffling is performed after subword segmentation, and what explains it?"
+mean,raw,0.4,0.2,
+mean,concat,0.2,0.067,
+mean,rewrite,0.4,0.22,
+mean,standalone,0.8,0.517,

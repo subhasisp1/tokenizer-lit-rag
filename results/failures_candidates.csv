@@ -1,0 +1,4 @@
+model,retriever,id,category,evidence,question
+anthropic/claude-haiku-4.5,bm25,t11,false_abstention,model,"In the study of tokenization bypassing knowledge editing and unlearning, what F1 score does the Toketive attack reach for detecting edited facts?"
+anthropic/claude-haiku-4.5,bm25,t23,retrieval_miss,2605.01188 2608.00582 2608.18062,"What evidence shows that the link between a tokenizer's compression rate and downstream task performance is inconsistent across studies, languages and tasks?"
+anthropic/claude-haiku-4.5,bm25,t28,false_abstention,model,Which combination of BPE model and vocabulary source produced that best result?
