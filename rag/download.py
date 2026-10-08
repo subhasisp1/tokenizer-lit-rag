@@ -12,7 +12,8 @@ Decisions:
   every 50 rows, and a row that only met transient errors stays empty so the next run retries.
 - Licence: the "License: ..." line arXiv prints in its HTML, else the manifest's, else a note
   that we hold the files under arXiv's default licence and do not redistribute them.
-- --extras adds v1 PDFs and ACL PDFs as their own rows, so dedupe has real duplicates to find.
+- --extras adds v1 PDFs and ACL copies (source arxiv_v1 / acl_copy) as their own rows, so dedupe has
+  real duplicates to find.
 """
 import argparse
 import csv
@@ -34,7 +35,7 @@ HTML_DIR = config.RAW / "html"
 PDF_DIR = config.RAW / "pdf"
 LOG = config.DATA / "download_log.csv"
 DEFAULT_LICENSE = "arXiv non-exclusive distribution licence; not redistributed"
-EXTRA_LICENSE = {"arxiv_v1": DEFAULT_LICENSE, "acl": "ACL Anthology licence (see the paper page); not redistributed"}
+EXTRA_LICENSE = {"arxiv_v1": DEFAULT_LICENSE, "acl_copy": "ACL Anthology licence (see the paper page); not redistributed"}
 last_request = {}  # host -> time.monotonic() of the last request
 stats = Counter()
 
@@ -123,6 +124,7 @@ def fetch(session, tag, step, url, path, is_html):
     elif r is not None:
         outcome = f"http {r.status_code}"
     if ok:
+        path.parent.mkdir(parents=True, exist_ok=True)  # old-style ids such as cs/0501001 hold a slash
         path.write_bytes(r.content)
         outcome = "saved"
     log(tag, step, url, r, time.monotonic() - start, outcome)
@@ -167,7 +169,7 @@ def extra_jobs(rows):
         url = r.get("published_version_url", "")
         if "aclanthology.org" in url and url.endswith(".pdf"):
             name = url.rsplit("/", 1)[1]
-            yield f"acl:{name[:-4]}", "acl", url, PDF_DIR / f"acl_{name}", r
+            yield f"acl:{name[:-4]}", "acl_copy", url, PDF_DIR / f"acl_{name}", r
 
 
 def download_extras(session, rows, limit, dry_run):
