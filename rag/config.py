@@ -53,11 +53,11 @@ RETRIEVER = "hybrid-bge"   # set from results/RECOMMENDATION.md after the compar
 DENSE_CANDIDATES = 50
 RRF_K = 60
 TOP_K = 8                  # passages shown to the answer model
-MAX_PER_WORK = 2           # R1 cap on passages from one work in the shown set
+MAX_PER_WORK = 4           # R1 cap on passages from one work in the shown set (2 cost lookup recall: results/dedup.csv)
 COLLAPSE_TAU = 0.92        # R2: fold a passage whose cosine with a shown one is >= tau
 SURVEY_CAP = 1             # R3: surveys allowed in the top 5 unless the question asks for one
 
 # Chat
 ABSTAIN_SENTENCE = "The corpus does not support an answer to this question."
-ABSTAIN_DENSE_TAU = 0.777  # score gate: lowest answerable dev cosine (0.7976) minus 0.02; scripts/tune_gate.py
+ABSTAIN_DENSE_TAU = 0.0    # score gate off: on the dev split the prompt alone abstains on 4/4 unanswerable (scripts/tune_gate.py measured tau 0.777; results/answers_dev_gate*.jsonl)
 ABSTAIN_BM25_TAU = 0.0

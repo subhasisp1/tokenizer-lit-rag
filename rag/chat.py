@@ -32,8 +32,10 @@ ANSWER_PROMPT = (
     "sources provided. Rules: put a citation like [2] after every factual sentence, using only the "
     "source numbers given; copy numbers, names and settings exactly as the sources state them; when "
     "sources disagree, say so and cite both; prefer the primary paper over a survey for the same "
-    "finding; answer in at most 180 words; if the sources do not contain the answer, reply exactly: "
-    f"\"{config.ABSTAIN_SENTENCE}\" and you may add one sentence on what the closest sources cover instead."
+    "finding; answer in at most 180 words. When the sources cover the question only in part, answer the part "
+    "they cover, say what they do not cover, and cite; partial evidence is still an answer. Reply exactly: "
+    f"\"{config.ABSTAIN_SENTENCE}\" only when none of the sources bears on the question, and you may then add "
+    "one sentence on what the closest sources cover instead."
 )
 CITE = re.compile(r"(\s*)\[(\d+(?:\s*,\s*\d+)*)\]")
 SOURCE_KEYS = ("chunk_id", "work_id", "title", "year", "venue", "section", "score", "text")
