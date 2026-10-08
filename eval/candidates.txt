@@ -1,0 +1,1182 @@
+QUESTION SELECTION for the evaluation set (Friday morning, 60-90 min).
+
+Goal: 36 TEST questions = 12 lookup + 6 conceptual + 7 multi + 5 follow-up + 6 unanswerable,
+and 8 DEV questions = 4 answerable (any type) + 4 unanswerable.
+For each candidate below write after KEEP: yes | no | edit. If 'edit', write the new wording after
+EDITED: (same answer and quote; rewording only). Add 'dev' after KEEP to send it to the dev split,
+e.g. 'yes dev'. Skip a candidate when its quote does not really support the answer, or when the
+question copies the quote's wording. IMPORTANT: a question must be answerable without knowing which
+paper it came from, so name the setting (e.g. 'In the study of fine-tuning NMT with new subword
+vocabularies, how many BLEU points ...') when the candidate is too bare; use 'edit' for that.
+Aim for about 4 that are duplicate-prone (topics many papers share: BPE vs unigram, vocabulary size).
+
+Then fill the two sections at the end: 5 FOLLOW-UPS (each names a parent question you kept) and
+10 UNANSWERABLE questions (6 test + 4 dev) of these kinds: a fictional tokenizer; a number no paper
+reports; a topic outside the corpus (e.g. image tokenizers); a claim no paper makes; a model newer
+than the corpus; a paper not in the corpus.
+
+
+=== C01  [lookup]  works: 2303.00722
+Q: How many BLEU points of improvement did the best fine-tuned model achieve over the baseline?
+A: 6 BLEU points improvement over the baseline
+QUOTE (2303.00722 | Abstract):
+   the best of which achieves $6$ BLEU points improvement over the baseline.
+KEEP: 
+EDITED: 
+
+
+=== C02  [conceptual]  works: 2303.00722
+Q: Why is it important to consider both subword tokenization and vocabulary jointly when fine-tuning
+   an NMT model?
+A: Both subword tokenization and vocabulary have significant impacts on MT performance. The subword
+   model determines how text is segmented, while vocabulary determines which tokens are available
+   for the model. Together they must be optimized because new fine-tuning data may contain new words
+   and different token distributions than the original training data, making the original settings
+   suboptimal.
+QUOTE (2303.00722 | 3 Decision points):
+   These two factors -- subwords and vocabulary -- need to be jointly considered as each of them has
+   a significant impact on the MT performance.
+KEEP: 
+EDITED: 
+
+
+=== C03  [lookup]  works: 2306.02492
+Q: How many radiology reports were used to train the RadLing model?
+A: Over 500,000 radiology reports were used to train RadLing, specifically 545K reports containing
+   over 9.7M sentences and 87M words.
+QUOTE (2306.02492 | 3 Methods > 3.1 Dataset):
+   We have 545K reports in our training dataset, with over 9.7M sentences and 87M words.
+KEEP: 
+EDITED: 
+
+
+=== C04  [lookup]  works: 2603.10771
+Q: What are the three specific instruction-tuned models used to study word recovery across different
+   architectures and scales?
+A: Gemma-2-9B-It, Qwen2.5-7B-Instruct, and Llama-3.2-3B-Instruct
+QUOTE (2603.10771 | 2 Background > 2.2 Models and Datasets):
+   Specifically, we study Gemma-2-9B-It (Team et al., 2024), Qwen2.5-7B-Instruct (Yang et al.,
+   2024), and Llama-3.2-3B-Instruct (Meta., 2024).
+KEEP: 
+EDITED: 
+
+
+=== C05  [conceptual]  works: 2603.10771
+Q: How does the word recovery mechanism enable LLMs to maintain performance when processing
+   character-level inputs instead of their trained canonical tokenization?
+A: LLMs internally reconstruct canonical word-level or subword-level identities within their hidden
+   states from character-level inputs, and use these recovered lexical units as intermediates for
+   downstream computation, rather than directly reasoning over individual characters.
+QUOTE (2603.10771 | 1 Introduction):
+   we identify a core process we term word recovery, in which models reconstruct canonical word- or
+   subword-level identities within their hidden states and use these recovered units as
+   intermediates for downstream computation.
+KEEP: 
+EDITED: 
+
+
+=== C06  [lookup]  works: 2603.05883
+Q: What is the fertility rate achieved by VerChol on the full Tamil Wikipedia evaluation of 483,313
+   unique words?
+A: 1.86 tokens per word
+QUOTE (2603.05883 | 4.3. Results: Full Wikipedia Evaluation):
+   VerChol 32K achieves 1.86 fertility on the full evaluation, producing 35% fewer tokens than BPE
+   and 47% fewer than the Indic-optimized BPE, with a vocabulary half the size (33K vs 68K).
+KEEP: 
+EDITED: 
+
+
+=== C07  [conceptual]  works: 2603.05883
+Q: Why does BPE tokenization fail to efficiently handle agglutinative languages compared to
+   morphological approaches?
+A: BPE fails because it lacks knowledge of morpheme boundaries and fragments words across these
+   boundaries when byte-pairs are statistically frequent, it cannot learn shared structure from
+   fragmented roots that are opaque as subword sequences, and it has no generalization mechanism for
+   unseen morphological combinations on the long tail of rare words.
+QUOTE (2603.05883 | 1. Introduction):
+   BPE, lacking any knowledge of morpheme boundaries, fragments such words into statistically
+   convenient but linguistically meaningless substrings.
+KEEP: 
+EDITED: 
+
+
+=== C08  [lookup]  works: 2608.17325
+Q: How many languages were included in the study to analyze tokenization across diverse typologies
+   and scripts?
+A: 18 languages
+QUOTE (2608.17325 | 3 Methodology > 3.1 Languages and Datasets):
+   We therefore study a broad, representative set of 18 languages across these diversity, listed in
+   Table 1
+KEEP: 
+EDITED: 
+
+
+=== C09  [lookup]  works: 2610.01634
+Q: What is the Diacritic Error Rate achieved by Yo-ByT5 on the YAD benchmark?
+A: Yo-ByT5 achieves a DER of 10.14% on the YAD benchmark.
+QUOTE (2610.01634 | Abstract):
+   Our results demonstrate that Yo-ByT5 matches the performance of the strongest existing model,
+   mT5-base, with a DER of 10.14% and a CER of 3.48%.
+KEEP: 
+EDITED: 
+
+
+=== C10  [conceptual]  works: 2610.01634
+Q: Why does the paper argue that byte-level models are particularly suitable for diacritic
+   restoration tasks?
+A: Byte-level models are suitable for diacritic restoration because diacritisation is fundamentally
+   a character- and byte-level operation involving combining marks attached to base characters.
+   Additionally, byte-level models process raw text directly without a fixed subword vocabulary,
+   making them robust to spelling variations and eliminating out-of-vocabulary issues.
+QUOTE (2610.01634 | 3 Yo-ByT5 > 3.1 Architecture and rationale):
+   A byte-level model was selected because diacritisation is fundamentally a character- and byte-
+   level operation involving combining marks attached to base characters.
+KEEP: 
+EDITED: 
+
+
+=== C11  [lookup]  works: oa:W4404783132
+Q: How many languages were studied in this research to examine subword segmentation quality in
+   GPT-4o?
+A: 10 languages: English, French, German, Spanish, Italian, Portuguese, Finnish, Swedish, Czech, and
+   Hungarian.
+QUOTE (oa:W4404783132 | 3 Methodology):
+   We study the quality of GPT-4o's segmentation for 10 languages (English, French, German, Spanish,
+   Italian, Portuguese, Finnish, Swedish, Czech, Hungarian).
+KEEP: 
+EDITED: 
+
+
+=== C12  [conceptual]  works: oa:W4404783132
+Q: Why is segmentation consistency across inflected forms theoretically important for a language
+   model's ability to generalize morphological patterns?
+A: Consistent representation of related words enables the model to share internal representations
+   across all observed occurrences of the same lemma, making generalization across inflectional
+   variants easier, which is particularly important for morphologically rich languages.
+QUOTE (oa:W4404783132 | 1.1 Segmentation Problems and Criteria):
+   A consistent representation of related words tries to achieve the same effects and is a more
+   robust formulation: while a linguistically sound segmentation is per design consistent, the
+   slightly simpler criterion of consistent segmentation is language-independent and less resource-
+   intensive.
+KEEP: 
+EDITED: 
+
+
+=== C13  [lookup]  works: 2108.00391
+Q: What is the vocabulary size discrepancy that was found when training two Unigram LM models on
+   different samples from the same Wikipedia source?
+A: 27% discrepancy, or 8,620 unshared tokens out of 32,000 tokens
+QUOTE (2108.00391 | 1 Introduction):
+   The resulting vocabularies presented a discrepancy of 27% (8,620 unshared tokens).
+KEEP: 
+EDITED: 
+
+
+=== C14  [conceptual]  works: 2108.00391
+Q: How does XRayEmb enable the use of character-level information in existing token-based
+   transformer models without retraining them from scratch?
+A: XRayEmb adds character-level encoding and decoding components that can be trained in a second
+   pre-training phase. The character encoder (XR-Enc) produces vector representations from character
+   sequences to replace token embeddings, while a character decoder (XR-Dec) learns to generate
+   characters from contextualized representations. These lightweight components are trained
+   alongside the original model using multiple loss objectives including language modeling,
+   embedding matching, and generation losses.
+QUOTE (2108.00391 | Abstract):
+   XRayEmb is composed of a character-level "encoder" that computes vector representations of
+   character sequences, and a generative component that decodes from the internal representation to
+   a character sequence.
+KEEP: 
+EDITED: 
+
+
+=== C15  [lookup]  works: 2601.10410
+Q: What is the parameter count of the final distilled Romanian language model produced by TF3?
+A: 26.45M parameters
+QUOTE (2601.10410 | Abstract):
+   yielding a compact 26.45M-parameter student model with tied embeddings and strong deployment
+   characteristics
+KEEP: 
+EDITED: 
+
+
+=== C16  [conceptual]  works: 2601.10410
+Q: Why does Romanian morphology create problems when processed with standard multilingual
+   tokenizers?
+A: Romanian's dense inflectional and derivational variation causes multilingual tokenizers optimized
+   for English to fragment Romanian words into excessively small subunits, inflating token sequences
+   and disrupting morphological regularities. This over-segmentation reduces effective context
+   length and weakens the model's ability to learn agreement and declension patterns.
+QUOTE (2601.10410 | 3 Tokenizer Design > 3.1 Motivation and Linguistic Context):
+   multilingual tokenizers—optimised for cross-lingual coverage rather than language-specific
+   morphology—tend to split Romanian words into excessively small subunits. This 'over-segmentation'
+   inflates token sequences, disrupts morphological regularities, and weakens the model's ability to
+   internalize agreement and declension patterns.
+KEEP: 
+EDITED: 
+
+
+=== C17  [lookup]  works: 2208.02554
+Q: What is the relative change in accuracy when vocabulary size is increased to 64,000 tokens using
+   the MLM+VIPI method compared to VIPI alone?
+A: MLM+VIPI results in a 2.51% improvement while VIPI alone decreases by 3.45%.
+QUOTE (2208.02554 | 4 Experiments > 4.1 Fine-tuning Transferred Vocabulary and C):
+   This trend continues at 64,000 tokens, where VIPI alone decreases by 3.45%, whereas the MLM+VIPI
+   approach results in a 2.51% improvement.
+KEEP: 
+EDITED: 
+
+
+=== C18  [conceptual]  works: 2208.02554
+Q: Why does incorporating a masked language modeling step improve inference time even when
+   vocabulary size increases?
+A: The MLM step compresses token representation and optimizes the model for faster inference by
+   better adjusting tokens rare in standard English but essential for medical NLP, reducing
+   computational burden during tokenization, embedding, and prediction generation.
+QUOTE (2208.02554 | 5 Discussion):
+   By this we could say that MLM step compresses the token representation and optimizes the model
+   for faster interference, even when the vocabulary size is significantly increased.
+KEEP: 
+EDITED: 
+
+
+=== C19  [lookup]  works: 2602.04289
+Q: What is the mixing rate r used during the main training phase after warm-up, and what percentage
+   of training samples are presented in compressed form versus raw bytes?
+A: The mixing rate r is set to 0.9, meaning 90% of training samples are presented in compressed form
+   and only 10% as raw bytes.
+QUOTE (2602.04289 | 2 Proxy Compression > 2.5 Implementation Details):
+   We set the mixing rate r=0.9, so that 90% of training samples are presented in compressed form
+   and only 10% as raw bytes.
+KEEP: 
+EDITED: 
+
+
+=== C20  [conceptual]  works: 2602.04289
+Q: Why does proxy compression treat compressed sequences as informative hints rather than complete
+   substitutes for raw byte streams, and how does this affect the model's learning objective?
+A: Proxy compression makes the learning objective more demanding by requiring the model to predict
+   in two different code spaces and implicitly align them. This forces the model to learn an
+   internal mapping between proxy codes and bytes, treating compressed sequences as hints rather
+   than complete substitutes, which encourages the model to remain grounded in the underlying byte-
+   level distribution.
+QUOTE (2602.04289 | 1 Introduction):
+   Conceptually, proxy compression makes the learning objective more demanding in a useful way. The
+   model must predict in two different code spaces and implicitly align them, learning an internal
+   mapping between proxy codes and bytes.
+KEEP: 
+EDITED: 
+
+
+=== C21  [lookup]  works: 2010.02534
+Q: What is the size of the Korean-English parallel corpus from AI Hub that was used for the machine
+   translation experiments?
+A: 800K sentence pairs, randomly split into 784K training, 8K development, and 8K test sentences
+QUOTE (2010.02534 | 5 Experiments > 5.1 Korean to/from English Machine Translati):
+   Recently, a Korean-English parallel corpus was publicly released by AI Hub, which was gathered
+   from various sources such as news, government web sites, legal documents, etc. We download the
+   news data, which amount to 800K sentence pairs, and randomly split them into 784K (train), 8K
+   (dev), and 8K (test).
+KEEP: 
+EDITED: 
+
+
+=== C22  [conceptual]  works: 2010.02534
+Q: Why does the morpheme-aware subword approach perform better than pure BPE for Korean machine
+   translation despite having similar token lengths?
+A: Linguistic awareness is an important factor in tokenization strategies; morpheme-aware subword
+   prevents tokens from spanning multiple morpheme boundaries, which is more optimal than BPE's
+   boundary-agnostic splitting that can generate tokens across morpheme boundaries.
+QUOTE (2010.02534 | 6 Discussion > 6.2 Linguistic Awareness):
+   Although they have the same average token length around 1.4, the Morpheme-aware Subword models
+   outperform the Subword models. We believe this is evidence to support that linguistic awareness
+   is another important factor in Korean tokenization strategies for machine translation.
+KEEP: 
+EDITED: 
+
+
+=== C23  [lookup]  works: oa:W3118022667
+Q: What was the maximum BLEU improvement achieved by the proposed bilingual subword segmentation
+   method compared to the unigram language model baseline on the ASPEC dataset?
+A: 0.81 BLEU points on the Ja-En translation task
+QUOTE (oa:W3118022667 | 4.2 Results):
+   BiSW improved by 0.81 and 0.10 BLEU points against Unigram LM on Ja-En and En-Ja, respectively
+KEEP: 
+EDITED: 
+
+
+=== C24  [conceptual]  works: oa:W3118022667
+Q: Why does the proposed bilingual subword segmentation method decompose compound words differently
+   than conventional segmentation methods?
+A: The proposed method decomposes compound words to minimize the difference between the number of
+   subword units in a sentence and that of its translation, encouraging one-to-one mappings between
+   segments across languages. This allows the model to learn translations of individual components
+   that can be useful for related words.
+QUOTE (oa:W3118022667 | 1 Introduction):
+   Our bilingual segmentation encourages one-to-one mappings between segments across languages
+   because it minimizes the difference between the number of segments in a sentence and that of its
+   translation.
+KEEP: 
+EDITED: 
+
+
+=== C25  [lookup]  works: 2205.07303
+Q: What is the size of the Tibetan vocabulary constructed using Sentencepiece with the unigram
+   language model?
+A: 30,005 words
+QUOTE (2205.07303 | III TiBERT Model > III-A Pretraining Data > III-A2 Vocabular):
+   Finally, the Tibetan vocabulary we constructed contains 30,005 words.
+KEEP: 
+EDITED: 
+
+
+=== C26  [conceptual]  works: 2205.07303
+Q: Why does the paper use the unigram language model instead of the BPE model for Tibetan sub-word
+   segmentation?
+A: The unigram language model can generate multiple candidate sub-word sequences, making the model
+   more robust to noise and sub-word segmentation errors, whereas the BPE model can only generate a
+   unique sub-word sequence for a sentence.
+QUOTE (2205.07303 | III TiBERT Model > III-A Pretraining Data > III-A2 Vocabular):
+   The bpe model can only generate a unique sub-word sequence for a sentence, while the unigram
+   language model can generate multiple candidate sub-word sequences, which can make the model more
+   robust to noise and sub-word segmentation errors.
+KEEP: 
+EDITED: 
+
+
+=== C27  [lookup]  works: 2512.21933
+Q: How many different NLP tasks were used to evaluate the tokenization penalty functions in the
+   experiments?
+A: Seven different NLP tasks were used: text classification, text pair classification, passage-based
+   QA, factual QA, named entity recognition, math reasoning, and code generation.
+QUOTE (2512.21933 | 4 Experiments):
+   We evaluate the proposed tokenization penalty functions on 7 different NLP tasks and 4 different
+   LLMs
+KEEP: 
+EDITED: 
+
+
+=== C28  [conceptual]  works: 2512.21933
+Q: Why does the contextual penalty function consider part-of-speech tags when computing tokenization
+   penalties for words?
+A: The contextual penalty function weights penalties by POS importance because certain POS tags like
+   verbs, nouns, adjectives and adverbs contribute more to overall meaning compared to other tags
+   like proper nouns and prepositions.
+QUOTE (2512.21933 | 2 Tokenization Penalty Functions):
+   We hypothesize that certain POS tags (verbs, common nouns, adjectives and adverbs) contribute
+   more to the overall meaning compared to certain other POS tags like proper nouns, prepositions,
+   etc.
+KEEP: 
+EDITED: 
+
+
+=== C29  [lookup]  works: 2605.22821
+Q: How close to optimal are the tokenisers produced by ConvexTok at common vocabulary sizes?
+A: Within 1% of optimal at common vocabulary sizes.
+QUOTE (2605.22821 | Abstract):
+   we empirically found it to be within 1% of optimal at common vocabulary sizes.
+KEEP: 
+EDITED: 
+
+
+=== C30  [conceptual]  works: 2605.22821
+Q: Why does the greedy approach used by BPE result in suboptimal tokeniser vocabularies?
+A: BPE makes locally-optimal decisions by iteratively merging the most frequent pair of tokens
+   without considering the resulting vocabulary as a whole, which can lead to unnecessary
+   intermediate tokens and loss of compressive ability. The paper illustrates this with an example
+   where BPE saves 5 symbols but the optimal solution saves 6 symbols.
+QUOTE (2605.22821 | 1 Introduction):
+   BPE's use of greedily chosen pair-wise token-merging means that unnecessary intermediate tokens
+   are created and compressive ability is lost.
+KEEP: 
+EDITED: 
+
+
+=== C31  [lookup]  works: 2108.00801
+Q: What is the average CLUE score achieved by the LICHEE-enhanced BERT-large ensemble model in the
+   competition?
+A: 80.42
+QUOTE (2108.00801 | 1 Introduction):
+   achieved the state-of-the-art performance of an average score of $80.42$ (as of January 8, 2021)
+   over 9 different Chinese NLU tasks
+KEEP: 
+EDITED: 
+
+
+=== C32  [conceptual]  works: 2108.00801
+Q: Why does LICHEE perform the fusion of multi-grained information at the embedding level rather
+   than using separate encoders like AMBERT?
+A: Fusing at the embedding level requires no change to the original model structure and induces
+   little extra inference cost, whereas the dual-encoder structure of AMBERT significantly increases
+   inference cost, which is often unacceptable in industrial scenarios.
+QUOTE (2108.00801 | 1 Introduction):
+   in LICHEE the fusion of multi-grained information of input text happens at the embedding level,
+   which requires no change on the original model structure of the PLM, and thus induces little
+   extra inference cost when applied in online NLP applications
+KEEP: 
+EDITED: 
+
+
+=== C33  [lookup]  works: 2004.13819
+Q: What were the BLEU scores achieved by the proposed model for English-Tamil and English-Malayalam
+   translation compared to Google Translate?
+A: The proposed model achieved BLEU scores of 24.34 for English-Tamil and 9.78 for English-
+   Malayalam, compared to Google Translate's scores of 9.40 and 5.94 respectively.
+QUOTE (2004.13819 | Abstract):
+   Experimental results and survey confirmed that our proposed translator (24.34 and 9.78 BLEU
+   score) outperforms Google translator (9.40 and 5.94 BLEU score) respectively.
+KEEP: 
+EDITED: 
+
+
+=== C34  [conceptual]  works: 2004.13819
+Q: Why is Byte-Pair-Encoding particularly useful for addressing morphological challenges in Indian
+   language translation?
+A: BPE helps overcome morphological analysis problems by merging frequent pairs of characters or
+   character sequences to create new and complex words as sub-word units, which eliminates the need
+   for manual suffix, prefix separation, and compound splitting that was required in previous
+   approaches.
+QUOTE (2004.13819 | 3. Approach > 3.1. Neural Machine Translation Overview > 3.1):
+   BPE helps in the suffix, prefix separation, and compound splitting which in our case used for
+   creating new and complex words of Malayalam and Tamil language by interpreting them as sub-words
+   units.
+KEEP: 
+EDITED: 
+
+
+=== C35  [lookup]  works: 1809.04259
+Q: What are the minimum and maximum character n-gram lengths used in the Bag-of-Substring model
+   across all experiments?
+A: The minimum length is 3 and the maximum length is 6.
+QUOTE (1809.04259 | 2 Bag-of-Substring Model):
+   For BoS model, $l_{min}=3$ and $l_{max}=6$ following Bojanowski et al. (2017).
+KEEP: 
+EDITED: 
+
+
+=== C36  [conceptual]  works: 1809.04259
+Q: Why does the Bag-of-Substring model use special start and end characters to mark word boundaries
+   rather than processing raw character sequences?
+A: The special characters help the model distinguish homographic morphemes that occur at different
+   word positions, such as prefixes versus suffixes.
+QUOTE (1809.04259 | 2 Bag-of-Substring Model):
+   Special characters $\texttt{<},\texttt{>}\not\in\Sigma$ are used to mark the start and the end of
+   the word and thus help the model to distinguish homographic morphemes that occur at different
+   word parts, e.g. prefixes or suffixes.
+KEEP: 
+EDITED: 
+
+
+=== C37  [lookup]  works: 2506.01084
+Q: What is the maximum merge size parameter used in the zip2zip experiments on Phi-3 models?
+A: The maximum merge size is set to M=3.
+QUOTE (2506.01084 | 3 Experiments > 3.1 Training Setup):
+   We set the maximum merge size to $M=3$ and use a two-layer transformer encoder as the hyper-
+   encoder.
+KEEP: 
+EDITED: 
+
+
+=== C38  [conceptual]  works: 2506.01084
+Q: How does the hyper-encoder compute embeddings for hypertokens that are composed of fewer base
+   tokens than the maximum merge size?
+A: For hypertokens composed of fewer than M base tokens, the input sequence is padded to length M
+   before being passed through the hyper-encoder.
+QUOTE (2506.01084 | 2 zip2zip > 2.2 Hyper-Embedding and Hyper-Projection):
+   For hypertokens composed of fewer than $M$ base tokens, we pad the input sequence to length $M$.
+KEEP: 
+EDITED: 
+
+
+=== C39  [lookup]  works: 2609.39001
+Q: What is the range of token premium that French requires compared to English across the seven
+   tokenizers measured in this study?
+A: French requires 31% to 58% more tokens than English across the seven tokenizers tested (ranging
+   from 1.31 on Tekken to 1.58 on Llama 3).
+QUOTE (2609.39001 | 4 Results > 4.1 French pays more than Chinese):
+   French requires 1.31 (Tekken) to 1.58 (Llama 3) times the English token count
+KEEP: 
+EDITED: 
+
+
+=== C40  [conceptual]  works: 2609.39001
+Q: How does the French token premium decompose into its constituent factors, and what do these
+   factors represent?
+A: The French premium factors into the character-length ratio of translated texts (1.18 on NTREX)
+   and the per-character token ratio (ranging from 1.11 to 1.33 across tokenizers). The character-
+   length ratio reflects that French translations are longer, while the per-character token ratio
+   reflects how efficiently each character is compressed into tokens.
+QUOTE (2609.39001 | 4 Results > 4.3 Decomposition):
+   The French premium factors into the character-length ratio of the translated texts (1.18 on
+   NTREX) and the per-character token ratio, which ranges from 1.11 (Tekken) to 1.33 (Llama 3)
+KEEP: 
+EDITED: 
+
+
+=== C41  [lookup]  works: 2203.10995
+Q: What is the size of the custom vocabulary used when training the smaller RoBERTa models?
+A: 5,000
+QUOTE (2203.10995 | 2 Models):
+   To this end, we train a custom vocabulary of size 5,000, which we use for indexing in all our
+   subsequent experiments.
+KEEP: 
+EDITED: 
+
+
+=== C42  [conceptual]  works: 2203.10995
+Q: Why do shuffled language models trained on text shuffled before subword segmentation retain word
+   order information despite the shuffling?
+A: Because shuffling before BPE segmentation results in word-level shuffling where sequences of
+   subwords that form words remain contiguous, creating consistent, meaningful signals for language
+   modelling that allow models to utilize the inductive bias provided by position embeddings.
+QUOTE (2203.10995 | 4 Hidden word-order signals):
+   When tokens are shuffled before BPE segmentation, this leads to word-level shuffling, in which
+   sequences of subwords that form words remain contiguous. Such sequences become a consistent,
+   meaningful signal for language modelling, allowing models to efficiently utilise the inductive
+   bias provided by position embeddings.
+KEEP: 
+EDITED: 
+
+
+=== C43  [lookup]  works: 2606.08451
+Q: How many total evaluation instances were created across all languages and topic categories in
+   this study?
+A: 1,128,600 evaluation instances
+QUOTE (2606.08451 | 1 Introduction):
+   we construct a dataset of 1,128,600 evaluation instances across 33 opinion categories, ranging
+   from neutral preferences to safety-critical themes
+KEEP: 
+EDITED: 
+
+
+=== C44  [conceptual]  works: 2606.08451
+Q: What is the underlying mechanism by which safety alignment degrades in low-resource languages
+   according to the paper's findings?
+A: Tokenizer fertility causes alignment collapse because high fragmentation of words into many
+   subword tokens degrades semantic representations, which prevents RLHF-induced refusal behaviors
+   from triggering, causing models to default to agreeing with users.
+QUOTE (2606.08451 | 2 Related Work > 2.3 Tokenizer Fertility and Cross-Lingual T):
+   If safety concepts are loosely bound across fragmented tokens in zero-shot scripts, the model
+   will struggle to apply RLHF-induced refusal behaviors, leading directly to the sycophancy spikes
+   we observe in our experiments.
+KEEP: 
+EDITED: 
+
+
+=== C45  [lookup]  works: 2306.14866
+Q: How many sentences does the original NArabizi treebank contain?
+A: The original NArabizi treebank contains about 1500 sentences.
+QUOTE (2306.14866 | 2 Related work):
+   The original NArabizi treebank Seddah et al. (2020), contains about 1500 sentences.
+KEEP: 
+EDITED: 
+
+
+=== C46  [conceptual]  works: 2306.14866
+Q: Why is maintaining consistency in treebank annotations particularly important for small datasets
+   of highly variable languages?
+A: Because using a cleaner and more coherent treebank yields superior results compared to a treebank
+   with a training set five times larger, making high-quality dataset annotations especially
+   significant for smaller datasets.
+QUOTE (2306.14866 | 1 Introduction):
+   Schluter and van Genabith (2007) demonstrate that using a cleaner and more coherent treebank
+   yields superior results compared to a treebank with a training set five times larger.
+KEEP: 
+EDITED: 
+
+
+=== C47  [lookup]  works: 2410.03258
+Q: What are the specific accuracy improvement percentages that AdaptBPE achieves over standard BPE
+   on classification tasks and summarization tasks respectively?
+A: AdaptBPE improves by 3.57% in accuracy for classification tasks and 1.87% in terms of Rouge-L for
+   summarization tasks.
+QUOTE (2410.03258 | Abstract):
+   AdaptBPE improves by $3.57\%$ (in terms of accuracy) and $1.87\%$ (in terms of Rouge-L),
+   respectively.
+KEEP: 
+EDITED: 
+
+
+=== C48  [conceptual]  works: 2410.03258
+Q: Why does the standard BPE tokenization scheme fail to properly utilize domain-specific vocabulary
+   that is appended to the original pretrained language model vocabulary?
+A: Standard BPE fails because the merge rules for added vocabulary are trivially appended to the
+   end, which automatically gives them lower priority compared to the existing PLM vocabulary,
+   causing the BPE tokenizer to ignore the added domain-specific terms.
+QUOTE (2410.03258 | 1 Introduction):
+   Prior vocabulary adaptation studies Hong et al. (2021); Balde et al. (2024) append added
+   vocabulary and corresponding merge rules towards the end of existing PLM vocabulary (VPLM). This
+   approach does not guarantee that the Byte-Pair Encoding (BPE) tokenizer will use the added target
+   domain vocabulary. We believe this is because the merge rules are trivially appended to the end,
+   automatically implying a lower priority (of VDOMAIN) over existing PLM vocabulary (VPLM).
+KEEP: 
+EDITED: 
+
+
+=== C49  [lookup]  works: 2004.04002
+Q: What are the three artificially restricted translation tasks that were tested in this research?
+A: English to Estonian and Finnish, English to Slovak and Czech, and English to Danish and Swedish.
+QUOTE (2004.04002 | Abstract):
+   We test various methods on three artificially restricted translation tasks—English to Estonian
+   (low-resource) and Finnish (high-resource), English to Slovak and Czech, English to Danish and
+   Swedish—and one real-world task, Norwegian to North Sámi and Finnish.
+KEEP: 
+EDITED: 
+
+
+=== C50  [conceptual]  works: 2004.04002
+Q: Why does morphological complexity in a language require larger corpora to achieve the same
+   vocabulary coverage?
+A: Rich, productive morphology leads to a combinatorial explosion in the number of word forms, so
+   more data is needed to reach the same coverage of word forms.
+QUOTE (2004.04002 | 1 Introduction):
+   Rich, productive morphology leads to a combinatorial explosion in the number of word forms.
+   Therefore, a larger corpus is required to reach the same coverage of word forms.
+KEEP: 
+EDITED: 
+
+
+=== C51  [lookup]  works: 2609.29045
+Q: What is the F1 score that Toketive achieves for detecting modified facts across the evaluated
+   models and techniques?
+A: 84.2%
+QUOTE (2609.29045 | Abstract):
+   Toketive detects modified facts with an F1 score of 84.2%, a 26.2% relative gain over the
+   strongest baseline
+KEEP: 
+EDITED: 
+
+
+=== C52  [conceptual]  works: 2609.29045
+Q: Why does the locate-then-edit paradigm fail to prevent knowledge recovery when alternative
+   tokenizations are used?
+A: Because alternative tokenizations induce different internal computational trajectories that may
+   not have been modified by the localized parameter updates, which were optimized for the canonical
+   tokenization. The editing procedure modifies only the parameters responsible for the canonical
+   path, leaving unpatched computational paths that preserve residual factual associations
+   accessible through alternative tokenizations.
+QUOTE (2609.29045 | I Introduction):
+   alternative tokenizations [43] of the same string (noncanonical tokenizations) can induce
+   different internal computational paths, exposing tokenization-based side channels that can bypass
+   alignment mechanisms optimized for the canonical representation
+KEEP: 
+EDITED: 
+
+
+=== C53  [lookup]  works: 2510.14365
+Q: What is the accuracy of Qwen3-30B(A3B) on GSM8K under the 1-Inj perturbation condition?
+A: 43.4%
+QUOTE (2510.14365 | 4 Factors Influencing the Performance of LLMs > 4.1 Model-Re):
+   For example, Llama3.1-70B get accuracy of 10.0% under 1-Inj, which is significantly lower than
+   43.4%, the accuracy that a smaller model Qwen3-30B(A3B) get.
+KEEP: 
+EDITED: 
+
+
+=== C54  [conceptual]  works: 2510.14365
+Q: Why does inserting visible noise character 'A' cause greater performance degradation than
+   invisible Unicode control characters in the UCC-Inj method?
+A: The inserted 'A' is often merged with adjacent characters into single tokens by the tokenizer,
+   which disrupts interpretation more than the character-wise tokenization fragmentation caused by
+   inserting invisible VS characters.
+QUOTE (2510.14365 | 4 Factors Influencing the Performance of LLMs > 4.3 Noise-Re):
+   We attribute this to tokenization errors, i.e., we find that the inserted 'A' is often merged
+   with adjacent characters into single tokens by the tokenizer, which disrupts interpretation more
+   than the character-wise tokenization fragmentation caused by inserting VS.
+KEEP: 
+EDITED: 
+
+
+=== C55  [lookup]  works: 1609.03777
+Q: What is the perplexity improvement of the HLSTM-B model with 4x512 configuration compared to the
+   deep LSTM model with 4x1024 configuration on the WSJ corpus?
+A: HLSTM-B (4x512) has about 9% lower perplexity than deep LSTM (4x1024) on the WSJ corpus.
+QUOTE (1609.03777 | 5 Experiments > 5.1 Perplexity > 5.1.1 Wall Street Journal ():
+   Especially, HLSTM-B network with the size of 4x512 has about 9% lower perplexity than deep LSTM
+   (4x1024) model, even with only 29% of parameters.
+KEEP: 
+EDITED: 
+
+
+=== C56  [conceptual]  works: 1609.03777
+Q: How does the hierarchical RNN architecture enable the character-level module to focus on short-
+   term information rather than long-term dependencies?
+A: The character-level modules are reset by the higher-level clock signals, which helps them
+   concentrate on compressing only short-term information rather than considering longer
+   dependencies.
+QUOTE (1609.03777 | 4 Character-level language modeling with a hierarchical RNN):
+   The reset of the module by the higher level clock signals helps the module to concentrate on
+   compressing only the short term information, rather than considering longer dependencies.
+KEEP: 
+EDITED: 
+
+
+=== C57  [lookup]  works: 2305.08787
+Q: How many challenging biomedical sentences from Díaz and López (2015) were used to evaluate the
+   tokenizers in this study?
+A: Twenty-four challenging biomedical sentences were used to evaluate the tokenizers.
+QUOTE (2305.08787 | Abstract):
+   Díaz and López (2015) introduce 24 challenging example biomedical sentences for comparing
+   tokenizer performance.
+KEEP: 
+EDITED: 
+
+
+=== C58  [conceptual]  works: 2305.08787
+Q: Why do certain biomedical words and entities present particular difficulty for tokenization
+   algorithms?
+A: Biomedical texts are challenging to tokenize because they contain ungrammatical documents with
+   spelling errors and abbreviations, terms with mixed letters and digits with dashes and slashes,
+   and technical scientific/clinical language such as chemical compounds and genetic information.
+QUOTE (2305.08787 | 1 Introduction):
+   Biomedical and clinical texts are especially challenging to tokenize, as they are often
+   characterized by ungrammatical documents (e.g. spelling errors, abbreviations, author specific
+   reporting styles, etc.); terms containing a mix of letters and digits, dashes, slashes, periods;
+   and technical scientific/clinical language (e.g. chemical compounds, genetic information,
+   diseases, etc.)
+KEEP: 
+EDITED: 
+
+
+=== C59  [lookup]  works: 2609.21362
+Q: What are the vocabulary sizes for the Phonemic Tokenizer across the two languages evaluated?
+A: The Phonemic Tokenizer contains 112 vocabulary entries for Chinese and 256 for Vietnamese,
+   including phonological components, fallback characters, and special symbols.
+QUOTE (2609.21362 | 1 Introduction):
+   Including fallback and special symbols, the resulting vocabularies contain only 112 entries for
+   Chinese and 256 for Vietnamese.
+KEEP: 
+EDITED: 
+
+
+=== C60  [conceptual]  works: 2609.21362
+Q: Why does the Phonemic Tokenizer use a holistic masked language modeling approach that masks all
+   three components simultaneously rather than masking individual components?
+A: Masking only one component would reveal the remaining phonological information at the same
+   position, so all components must be masked together to force reconstruction from surrounding
+   context and ensure the model learns meaningful representations of the complete phonological
+   structure.
+QUOTE (2609.21362 | 4 PhonemicBERT > 4.2 Holistic Masked Language Modeling):
+   Masking only one component would reveal the remaining phonological information at the same
+   position. We therefore introduce Holistic Masked Language Modeling (H-MLM), which masks and
+   reconstructs the complete tuple.
+KEEP: 
+EDITED: 
+
+
+=== C61  [lookup]  works: 1902.06635
+Q: What is the name of the morphological analysis tool used in this work for Turkish text
+   processing?
+A: Zemberek
+QUOTE (1902.06635 | 3 Segmentation Methods and Neural Models for Sentiment Analy):
+   In this work, we used Zemberek (Ahmet Afsin Akin, 2007) for all morphological analysis related
+   segmentations.
+KEEP: 
+EDITED: 
+
+
+=== C62  [lookup]  works: oa:W3150702986
+Q: What is the parameter reduction achieved by the char2subword module compared to the original
+   embedding table?
+A: 45% reduction in embedding parameters
+QUOTE (oa:W3150702986 | 1 Introduction):
+   It improves performance and reduces the number of embedding parameters by 45% without sacrificing
+   inference speed.
+KEEP: 
+EDITED: 
+
+
+=== C63  [conceptual]  works: oa:W3150702986
+Q: Why is it necessary to apply contextualization through pre-training after the initial
+   approximation phase of the char2subword module?
+A: Contextualization aligns the semantics of the embedding space, which facilitates better
+   approximation of the original embedding space. Without contextualization, the module does not
+   have constraints forcing it to optimize for resembling the same embedding space as the original,
+   but contextualization helps align semantics even though it alone does not guarantee similarity to
+   the original space.
+QUOTE (oa:W3150702986 | 4 Experiments):
+   Contextualization by itself does not guarantee that the module will resemble the same embedding
+   space as in E (i.e., nothing that forces the module to optimize for that). However, it aligns
+   better the semantics of the space facilitating the approximation.
+KEEP: 
+EDITED: 
+
+
+=== C64  [lookup]  works: 2608.10690
+Q: What is the lowest mean relative error achieved by QGDE for token-level estimation in the
+   controlled experimental settings?
+A: 3.00%
+QUOTE (2608.10690 | Abstract):
+   QGDE achieves mean relative errors as low as 3.00% for token-level estimation and 3.08% after
+   aggregation into category-level mixtures.
+KEEP: 
+EDITED: 
+
+
+=== C65  [conceptual]  works: 2608.10690
+Q: Why does QGDE use multiple quantile trends instead of fitting a single median curve to estimate
+   token ratios?
+A: A single median curve reduces tokens with similar IDs to a single typical ratio and discards
+   their local ratio variation, whereas multiple quantile trends preserve the local variation in the
+   ID-ratio distribution that is needed for accurate token-level estimation. The global trends
+   provide multiple candidate estimates that can be weighted by local density support.
+QUOTE (2608.10690 | 4 Quantile-Guided Density Estimation > 4.1 Fitting ID–Ratio ):
+   However, it reduces tokens with similar IDs to a single typical ratio, discarding their local
+   ratio variation. This local variation is exactly the distributional signal needed for token-level
+   estimation.
+KEEP: 
+EDITED: 
+
+
+=== C66  [conceptual]  works: 2608.25768
+Q: What mechanism explains why the CLM→MLM curriculum outperforms pure MLM on retrieval tasks
+   despite performing similarly on linear probing?
+A: The difference is due to embedding geometry. In pure MLM, a single direction (rogue dimension)
+   absorbs 28.1% of variance, compressing vectors toward a common direction and burying
+   discriminative signal in noise. In the curriculum model, this is reduced to 11.9%, allowing
+   cosine similarity-based retrieval to work better.
+QUOTE (2608.25768 | 5 Model and Pretraining > 5.3 Ablation: CLM$\rightarrow$MLM ):
+   The critical row is the variance share of the first component: in the pure-MLM model a single
+   direction absorbs 28.1% of the variance, against 11.9% in the curriculum model. Known in the
+   literature as a 'rogue dimension', this pattern compresses all vectors towards a common
+   direction, and because cosine similarity cannot remove that common component, the discriminative
+   signal is buried in noise.
+KEEP: 
+EDITED: 
+
+
+=== C67  [lookup]  works: oa:W4404782035
+Q: What percentage reduction in embedding layer size does T-FREE achieve compared to the unigram
+   baseline?
+A: 87.5% reduction in embedding layer size
+QUOTE (oa:W4404782035 | 1 From Text Representations For Machine Learning):
+   This exploitation of similarities allows T-FREE to reduce the size of the embedding layers by
+   87.5%
+KEEP: 
+EDITED: 
+
+
+=== C68  [conceptual]  works: oa:W4404782035
+Q: Why does T-FREE's use of character triplets allow for compression of embedding layers compared to
+   traditional tokenizers?
+A: T-FREE exploits morphological similarities between words by representing them through overlapping
+   character triplets, allowing similar words to share embedding entries rather than requiring
+   independent embeddings for each variant. This shared representation means the converged
+   embeddings of morphologically similar words remain close and can be heavily compressed.
+QUOTE (oa:W4404782035 | 1 From Text Representations For Machine Learning):
+   T-FREE explicitly models character overlaps between morphologically similar words without the
+   need to learn an embedding for each variant from scratch through a one-to-one bijection.
+KEEP: 
+EDITED: 
+
+
+=== C69  [lookup]  works: 2608.18094
+Q: How many sentences were used to train the custom tokenizer for Pnar and Kokborok languages after
+   applying the upsampling strategy?
+A: Pnar received 100× upsampling from 1,002 sentences (virtual count: 100,200 sentences) and
+   Kokborok received 100× upsampling from 2,463 sentences (virtual count: 246,300 sentences) during
+   tokenizer training.
+QUOTE (2608.18094 | 3 Dataset Construction > 3.3 Weighted Sampling Strategy):
+   ultra-low-resource languages (Pnar with 1,002 sentences, Kokborok with 2,463 sentences) receive
+   100× upsampling during tokenizer training to ensure adequate vocabulary representation.
+KEEP: 
+EDITED: 
+
+
+=== C70  [conceptual]  works: 2608.18094
+Q: Why was SentencePiece Unigram chosen over Byte-Pair Encoding for the NE-BERT tokenizer?
+A: SentencePiece Unigram was chosen because its probabilistic approach reduces harmful subword
+   fragmentation in morphologically rich and agglutinative languages compared to BPE's greedy
+   merging strategy, and it naturally balances frequent subword allocation across languages without
+   explicit vocabulary partitioning.
+QUOTE (2608.18094 | 4 Tokenization > 4.1 Algorithm Selection):
+   Unigram's probabilistic approach reduces harmful subword fragmentation in morphologically rich
+   and agglutinative languages (Kokborok, Garo, Meitei) compared to BPE's greedy merging strategy.
+KEEP: 
+EDITED: 
+
+
+=== C71  [lookup]  works: 2303.15100
+Q: By what percentage does the average sentence length increase after tokenization in the biomedical
+   ADE dataset?
+A: The sentence length increases by approximately 12 tokens, up to 58% after tokenization in the
+   biomedical domain.
+QUOTE (2303.15100 | 2 Tokenization Analysis - Datasets):
+   The sentence length increases by approximately 12 tokens, up to 58%, after the tokenization in
+   the biomedical domain.
+KEEP: 
+EDITED: 
+
+
+=== C72  [conceptual]  works: 2303.15100
+Q: What mechanism explains why the aggregation step improves performance despite being a non-
+   trainable layer?
+A: The tokenization patterns of words of interest introduce inductive bias, and when aggregation is
+   used, the incoming gradient from the PFN module becomes more informative for the IE task,
+   allowing the model to better exploit these patterns.
+QUOTE (2303.15100 | 3 Inductive Bias > 3.2 Results - Discussion):
+   Even if the aggregation layer (simple summation and averaging) is not trainable, the incoming
+   gradient (backpropagation, [25]) from the PFN module appears to be more informative for the IE
+   task.
+KEEP: 
+EDITED: 
+
+
+=== C73  [lookup]  works: 2609.12303
+Q: What is the approximate vocabulary size for byte models compared to token models in this study?
+A: Byte models operate over a vocabulary of approximately 256 bytes, while token models use
+   approximately 100,000 tokens.
+QUOTE (2609.12303 | 1 Introduction > 1.1 Summary of Contributions):
+   By operating over a small vocabulary of $\approx$ 256 bytes instead of $\approx 100$K tokens,
+   they circumvent the need for top-$k$ truncation during logit dumping, while also reducing logit
+   storage costs to roughly one-fifth.
+KEEP: 
+EDITED: 
+
+
+=== C74  [multi]  works: 2004.03720, 2404.02421
+Q: What are the contrasting approaches used by BPE and unigram language models to construct their
+   vocabularies, and how do these differences affect their ability to identify morphologically
+   meaningful units?
+A: BPE uses a bottom-up approach that greedily merges character pairs based on bigram frequency,
+   while unigram language models use a top-down approach starting from a large vocabulary and
+   iteratively pruning based on perplexity. The unigram method produces tokens that align better
+   with morphology and recover common affixes, whereas BPE frequently absorbs affixes into adjacent
+   units.
+QUOTE (2404.02421 | 2 Related work):
+   BPE starts from a base character set, then merges those characters based on bigram frequency to
+   form subword units (bottom-up), whereas unigram language models start from a large subword
+   vocabulary, which is then reduced based on a regularization method (top-down).
+QUOTE (2004.03720 | 3 Comparison of Segmentations > 3.1 Morphology):
+   We observe that the unigram LM method produces subword units that qualitatively align with
+   morphology much better than those produced by BPE.
+KEEP: 
+EDITED: 
+
+
+=== C75  [multi]  works: 1910.13267, 2004.14821, 2407.13623, 2602.09388
+Q: What evidence suggests that the relationship between vocabulary size and model performance is not
+   simply monotonic, and what factors explain why this relationship varies across different
+   contexts?
+A: Multiple studies demonstrate that vocabulary size has a non-monotonic relationship with model
+   performance. While larger vocabularies can improve tokenization efficiency and concept coverage,
+   the optimal vocabulary size depends on computational budget, data availability, and training
+   regime. In low-resource settings, smaller vocabularies perform better, whereas high-resource
+   settings benefit from larger vocabularies. Additionally, vocabulary quality matters as much as
+   size—larger vocabulary sets do not necessarily guarantee better performance.
+QUOTE (2602.09388 | 5 Results and analysis > 5.2 Analysis > 5.2.1 The impact of ):
+   Additionally, we observe that a larger source language vocabulary set does not necessarily lead
+   to better performance. This may be because the quality of the vocabulary set also affects the
+   models' performance, which inspires us to design more precise measure to screen out a high-
+   quality source language vocabulary set in future work.
+QUOTE (2407.13623 | 1 Introduction):
+   A larger vocabulary size improves tokenization fertility, i.e., splitting sentences into fewer
+   tokens, thereby improving the tokenization efficiency. Additionally, a larger vocabulary enables
+   the model to capture a wider range of concept. However, the risk of under-fitting for rare tokens
+   increases with larger vocabulary sizes, especially in the data-constrained regime.
+QUOTE (1910.13267 | 7 Related work):
+   Ding et al. (2019) explore the effect of BPE vocabulary size and find that it is better to use
+   small vocabulary for low-resource setting and large vocabulary for a high-resource setting.
+QUOTE (2004.14821 | 6 Analysis > 6.2 Effect of Vocabulary Size in Fine Tuning):
+   Figure 3 shows that VA-LLM preferred large vocabulary sizes when additional target-domain
+   monolingual data was used for training cbow, whereas it preferred small vocabulary sizes when the
+   data was not used.
+KEEP: 
+EDITED: 
+
+
+=== C76  [multi]  works: 2509.05486, 2605.24718
+Q: How does the relationship between tokenizer efficiency and model performance vary across
+   different language families, and what economic implications does this variation have?
+A: Higher tokenizer fertility (more tokens per word) consistently predicts lower accuracy across
+   languages, and this efficiency gap has significant economic consequences. While fertility varies
+   substantially across language families—with languages like Hungarian and Lithuanian showing
+   fertility around 2.7-3.0 compared to higher values in other families—each doubling of tokens
+   results in quadrupled training costs and time, creating a disproportionate economic burden on
+   speakers of morphologically complex languages.
+QUOTE (2605.24718 | 4 Experiments and Results > 4.2 Experiment 2: Cross-Lingual ):
+   Table 4: Mean tokenizer fertility across 6 models on SIB-200 parallel text, by language family.
+QUOTE (2509.05486 | Abstract):
+   Higher fertility consistently predicts lower accuracy across all models and subjects.
+QUOTE (2509.05486 | Abstract):
+   Finally, translating token inflation to economics, a doubling in tokens results in quadrupled
+   training cost and time, underscoring the "token tax" faced by many languages.
+KEEP: 
+EDITED: 
+
+
+=== C77  [multi]  works: 2402.14903, 2601.09706
+Q: What are the key limitations in how standard tokenization schemes handle numerical information in
+   language models, and what specific mechanisms have been proposed to address these limitations?
+A: Standard tokenization schemes struggle with arithmetic because numbers are processed as symbolic
+   tokens whose embeddings do not explicitly encode numerical value, and standard numeral
+   representations do not explicitly expose digit length or place value. To address these
+   limitations, researchers have proposed several mechanisms: introducing value-aware numerical
+   representations that augment inputs with prefix tokens conditioned on numerical values, using
+   structured number formats that prefix numerals with digit counts to provide early access to
+   magnitude information, employing right-to-left tokenization instead of left-to-right to improve
+   alignment with how arithmetic algorithms work, and incorporating regression-style signals into
+   training objectives to encourage numerically closer predictions.
+QUOTE (2601.09706 | Abstract):
+   A central limitation is that numbers are processed as symbolic tokens whose embeddings do not
+   explicitly encode numerical value, leading to systematic errors.
+QUOTE (2601.09706 | 2 Related Work > 2.2 Improving Arithmetics):
+   Standard numeral representations do not explicitly expose digit length or place value, requiring
+   models to infer scale implicitly during left-to-right generation.
+QUOTE (2601.09706 | 2 Related Work > 2.2 Improving Arithmetics):
+   Schwartz et al. (2024) addressed this issue by introducing a structured number format in which
+   each numeral is prefixed with its digit count.
+QUOTE (2402.14903 | 1 Introduction):
+   We find that model accuracy is up to 20% higher when using R2L tokenization (Figure 1, Section
+   3).
+KEEP: 
+EDITED: 
+
+
+=== C78  [multi]  works: 2311.05741, 2512.03989
+Q: What are the key differences between approaches that replace existing tokens with new language
+   tokens versus approaches that append new tokens to the vocabulary when adapting tokenizers to new
+   languages?
+A: Token replacement strategies keep model capacity constant by replacing the least frequent tokens
+   with new language tokens, whereas appending strategies add new tokens to the existing vocabulary.
+   The replacement approach avoids introducing useless tokens that don't participate in merges,
+   resulting in better compression compared to simply appending tokens that may not be useful in the
+   tokenization process.
+QUOTE (2311.05741 | Appendix A Tokenizer Details > A.2 Token Replacement Details):
+   In our work, instead of extending the tokenizer's vocabulary, we replace the least frequent
+   tokens from it with tokens from the new language.
+QUOTE (2512.03989 | 1 Introduction):
+   We show that this approach introduces useless tokens that do not participate in merges, resulting
+   in lower compression compared to having tokens that are useful in tokenization.
+KEEP: 
+EDITED: 
+
+
+=== C79  [multi]  works: 2605.01188, 2608.00582, 2608.18062
+Q: What evidence exists that the relationship between tokenizer compression rate and downstream task
+   performance is inconsistent across different experimental contexts and languages?
+A: Multiple studies have found contradictory results regarding compression and downstream
+   performance. In monolingual English models, some researchers argue higher compression is not
+   inherently beneficial, while others observe an upward trend in downstream performance with higher
+   compression. In multilingual settings, higher compression generally correlates with better
+   performance, but this may reflect language frequency in training data rather than a causal
+   relationship. Additionally, recent work has found non-monotonic relationships where optimal
+   compression exists beyond which performance degrades, and even negative correlations between
+   compression and benchmark scores depending on the task type.
+QUOTE (2605.01188 | 6 Related Work > 6.2 Search for Optimal Tokenization):
+   In monolingual (English) models, Schmidt et al. (2024) argued that higher compression is not
+   inherently beneficial. However, Liu et al. (2025) observed an upward trend in downstream task
+   performance with higher compression, even when perplexity (measured in bits per byte) degraded.
+   This discrepancy underscores the importance of evaluating downstream performance alongside
+   language modeling metrics.
+QUOTE (2605.01188 | 6 Related Work > 6.2 Search for Optimal Tokenization):
+   In contrast to prior work, our extensive search reveals that the impact of compression rate on
+   performance is non-monotonic: there exists an optimal compression rate beyond which performance
+   degrades.
+QUOTE (2608.00582 | Limitations):
+   Recent work shows that better compression does not uniformly predict task performance: Lotz et
+   al. (2025) find a statistically significant negative correlation ($\rho{=}{-}0.59$) between
+   compression and multiple-choice benchmark scores, and Wegmann et al. (2025) show the correlation
+   can invert by task type.
+QUOTE (2608.18062 | 1 Introduction):
+   As concrete examples, Zouhar et al. (2023) found that Rényi efficiency correlates strongly with
+   machine translation quality, and compression rate has long been treated as the default proxy for
+   tokenizer quality (Rust et al., 2021). Subsequent work, however, directly challenged both
+   findings (Schmidt et al., 2024; Cognetta et al., 2024).
+KEEP: 
+EDITED: 
+
+
+=== C80  [multi]  works: 2410.23684, 2605.17379
+Q: How do incomplete tokens in byte-level tokenizers differ from undertrained tokens identified
+   through embedding analysis in terms of their training representation and the types of errors they
+   cause?
+A: Incomplete tokens in byte-level tokenizers are characterized by being well-trained but
+   structurally incomplete, and they cause hallucinations distinct from those caused by undertrained
+   tokens. Undertrained tokens, identified through low embedding norms, are vocabulary items that
+   appeared infrequently during pretraining. While both types can cause model failures, incomplete
+   tokens suffer from higher hallucination rates despite similar training levels to complete tokens,
+   whereas undertrained tokens are identified by their sparse training occurrences and low embedding
+   norms.
+QUOTE (2410.23684 | 4 Hallucination Experiments):
+   This is distinct from hallucinations involving glitch tokens, as previously investigated by Land
+   and Bartolo (2024), which was attributed to undertrained tokens.
+QUOTE (2605.17379 | 2 Proposed Methodology (VocabAdapt) > 2.2 Identifying Candid):
+   The undertrained tokens are identified through the methodology of Land and Bartolo (2024) where
+   the L2 norm for each token embedding $e_{i}$ in the vocabulary is computed, $\|e_{i}\|_{2}$,
+   excluding partial utf-8, fallback bytes, and unreachable tokens.
+KEEP: 
+EDITED: 
+
+
+=== C81  [multi]  works: 2406.13560, 2511.09197, 2601.18536
+Q: How do different approaches to evaluating morphological alignment in subword segmentation compare
+   in their ability to capture morphological plausibility across languages with varying
+   morphological systems?
+A: Statistical alignment methods using IBM Model 1 to correlate subword tokens with morpho-syntactic
+   features show strong correlation with traditional boundary recall metrics across diverse
+   languages, while morphological boundary identification using precision, recall, and F1 scores
+   provides direct measurement of overlap between learned subwords and gold-standard morpheme
+   segmentations, with both approaches demonstrating that morphologically aligned segmentations can
+   improve downstream NLP tasks.
+QUOTE (2601.18536 | 6 Conclusion):
+   Our proposed metric correlates strongly with boundary recall across languages with varied
+   morphological systems, making it a capable contender for testing morphological plausibility.
+QUOTE (2511.09197 | 4 Experimental Setup > 4.4 Subword analysis > 4.4.1 Morpholo):
+   To measure morphological alignment, we compute precision, recall, and F1 for morphological
+   boundary identification.
+QUOTE (2406.13560 | Abstract):
+   We evaluate the proposed approaches using two intrinsic metrics and measure their performance on
+   two downstream tasks: part-of-speech tagging and machine translation.
+KEEP: 
+EDITED: 
+
+
+=== C82  [multi]  works: 2407.11606, 2410.19730
+Q: How do the formal theoretical conditions for preserving statistical estimator consistency in
+   tokenization relate to the practical performance degradation observed when tokenization choices
+   are suboptimal for specific computational tasks?
+A: While foundational work establishes formal conditions for tokenizers to preserve statistical
+   estimator consistency through stochastic map frameworks, empirical studies demonstrate that even
+   theoretically sound tokenization choices can lead to substantial practical performance drops—up
+   to 80% accuracy loss—when they are misaligned with specific task requirements like counting. This
+   gap suggests that statistical consistency alone is insufficient to guarantee optimal performance,
+   and that tokenization design must account for both theoretical statistical properties and task-
+   specific computational demands.
+QUOTE (2407.11606 | Abstract):
+   the necessary and sufficient conditions for a tokenizer model to preserve the consistency of
+   statistical estimators
+QUOTE (2410.19730 | 1 Introduction):
+   the correct tokenization choice is crucial for fully out-bringing a model's theoretical counting
+   ability and bridging the gap between theory and practice. Otherwise, accuracy drops of up to 80%
+   can be observed.
+KEEP: 
+EDITED: 
+
+
+====================================================================================================
+FOLLOW-UPS (5 for test, optionally 3 for dev). Format per line:
+  parent=C12 | question=How does that compare with WordPiece? | standalone=<what the question means on its own> | answer=<expected answer> | work=<arXiv id or oa id of the paper that answers it>
+
+FOLLOWUP 1: 
+FOLLOWUP 2: 
+FOLLOWUP 3: 
+FOLLOWUP 4: 
+FOLLOWUP 5: 
+FOLLOWUP 6 (dev): 
+FOLLOWUP 7 (dev): 
+FOLLOWUP 8 (dev): 
+
+====================================================================================================
+UNANSWERABLE (6 test + 4 dev). Format per line:
+  question=<the question> | why=<why the corpus cannot answer it>
+
+UNANSWERABLE 1: 
+UNANSWERABLE 2: 
+UNANSWERABLE 3: 
+UNANSWERABLE 4: 
+UNANSWERABLE 5: 
+UNANSWERABLE 6: 
+UNANSWERABLE 7 (dev): 
+UNANSWERABLE 8 (dev): 
+UNANSWERABLE 9 (dev): 
+UNANSWERABLE 10 (dev): 
