@@ -7,7 +7,11 @@ Decisions:
 - A gold item is hit when a chunk comes from the gold work and fuzz.partial_ratio(quote, text) >= 85.
   Matching on the work stops a survey that restates the quote from counting; the fuzzy match survives
   PDF-vs-HTML differences in whitespace, hyphens and ligatures.
-- Metrics per question on the collapsed top 10: recall@5 (share of gold items hit in the top 5),
+- Gold is extended by eval/gold_extension.jsonl when it exists: pooled chunks the pre-judge graded 3
+  ("fully answers"), so a retriever is not penalised for finding an equally good passage the first gold
+  missed. A gold WORK counts as found when any of its gold passages is hit, so extra passages of one work
+  never inflate the denominator; a new work found by pooling does add a target.
+- Metrics per question on the collapsed top 10: recall@5 (share of gold works found in the top 5),
   mrr@10 (1 / rank of the first hitting chunk), duprate@5 (top-5 slots whose work already appeared
   higher), distinct_works@5. Latency is the wall time of one retrieve() call, after one warm-up query
   that loads the model and index.
@@ -30,9 +34,13 @@ DEPTH = 10
 ALL = "bm25,bge,scincl,qwen-or,hybrid-bge,hybrid-scincl,hybrid-qwen-or"
 
 
-def load_questions(path, split):
+def load_questions(path, split, extension=config.EVAL / "gold_extension.jsonl"):
     with open(path) as f:
         rows = [json.loads(line) for line in f if line.strip()]
+    extra = [json.loads(line) for line in open(extension)] if Path(extension).exists() else []
+    for q in rows:
+        q["gold"] = q["gold"] + [{"work_id": e["work_id"], "section": e["section"], "quote": e["quote"]}
+                                 for e in extra if e["question_id"] == q["id"]]
     return [q for q in rows if q["type"] != "unanswerable" and q["gold"] and split in ("all", q["split"])]
 
 
@@ -46,7 +54,8 @@ def is_hit(gold, chunk):
 
 def score(gold, ranked):
     top5 = ranked[:5]
-    recall = sum(any(is_hit(g, c) for c in top5) for g in gold) / len(gold)
+    works = {g["work_id"] for g in gold}
+    recall = sum(any(is_hit(g, c) for g in gold if g["work_id"] == w for c in top5) for w in works) / len(works)
     first = next((i for i, c in enumerate(ranked[:DEPTH], 1) if any(is_hit(g, c) for g in gold)), 0)
     works = [c["work_id"] for c in top5]
     dup = sum(w in works[:i] for i, w in enumerate(works)) / len(works) if works else 0.0
