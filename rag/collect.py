@@ -365,6 +365,8 @@ def manifest_row(c, label):
     reason = s1.removeprefix("reject:") if s1.startswith("reject:") else ""
     if label and not label["in_scope"]:
         reason = label["out_of_scope_reason"]
+    if label and label["in_scope"] and not all(c.get(k) for k in ("title", "authors", "year")):
+        label, reason = None, "incomplete_metadata"  # an OpenAlex record without authors or year
     return {k: c.get(k, "") for k in COPIED} | {
         "work_id": c["arxiv_id"] if c["source"] == "arxiv" else c["record_id"],
         "authors": "; ".join(c.get("authors", [])), "matched_queries": "|".join(c.get("matched_queries", [])),

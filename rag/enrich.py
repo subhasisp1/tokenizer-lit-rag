@@ -64,7 +64,10 @@ def get(params, key):
         if r.status_code != 429 or attempt == 5:
             break
         STATS["429"] += 1
-        time.sleep(float(r.headers.get("Retry-After") or 10))
+        wait = float(r.headers.get("Retry-After") or 10)
+        if wait > 600:  # the daily budget is spent; it resets at midnight UTC
+            raise RuntimeError(f"OpenAlex budget exhausted; retry in {wait / 3600:.1f} h")
+        time.sleep(wait)
     r.raise_for_status()
     CACHE.mkdir(parents=True, exist_ok=True)
     path.write_text(r.text)
@@ -138,9 +141,20 @@ def link(limit=None, report=False):
     rows = manifest.load()
     todo = [r for r in rows if manifest.is_true(r["in_scope"]) and r["arxiv_id"] and not r["openalex_id"]]
     todo = todo[:limit] if limit else todo
-    matched = {r["record_id"]: by_title(r) for r in todo}
+    matched, skipped = {}, 0
+    for r in todo:
+        try:
+            matched[r["record_id"]] = None if skipped else by_title(r)
+        except RuntimeError as e:  # budget spent: leave the rest unresolved, keep what is cached
+            print(f"title search stopped: {e}")
+            matched[r["record_id"]] = None
+        skipped += matched[r["record_id"]] is None and STATS["429"] > 0
     n_title = sum(w is not None for w in matched.values())
-    hits = by_doi([r for r in todo if matched[r["record_id"]] is None])
+    try:
+        hits = by_doi([r for r in todo if matched[r["record_id"]] is None])
+    except RuntimeError as e:  # keep the title matches; the DOI fallback can run another day
+        print(f"DOI fallback skipped: {e}")
+        hits = {}
     pairs = []
     for r in todo:
         work = matched[r["record_id"]] or hits.get(r["arxiv_id"].lower())
@@ -148,7 +162,7 @@ def link(limit=None, report=False):
             fill(r, work)
             pairs.append(f"{r['title']} || {work['display_name']} | {r['venue']} | {work['publication_year']}")
     manifest.save(rows)
-    print(f"considered {len(todo)}  by DOI {len(pairs) - n_title}  by title {n_title}  unresolved "
+    print(f"considered {len(todo)}  by DOI {len(pairs) - n_title}  by title {n_title}  skipped (budget) {skipped}  unresolved "
           f"{len(todo) - len(pairs)}  429s {STATS['429']}  live requests {STATS['requests']}")
     if report:
         for p in random.Random(config.SEED).sample(pairs, min(20, len(pairs))):
