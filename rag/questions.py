@@ -16,6 +16,7 @@ Decisions:
 """
 import argparse
 import json
+from concurrent.futures import ThreadPoolExecutor
 import random
 import re
 import statistics
@@ -197,15 +198,18 @@ def pool(questions_path, retrievers, depth, out, model):
         for q in (q for q in read_jsonl(questions_path) if q["type"] != "unanswerable"):
             pooled = {c["chunk_id"]: c for r in usable
                       for c in search.retrieve(query_text(q), r, k=depth, collapse_mode="off")}
-            for cid, c in pooled.items():
-                if (q["id"], cid) in done:
-                    continue
-                if any(is_hit(g, c) for g in q["gold"]):
+            todo = [c for cid, c in pooled.items() if (q["id"], cid) not in done]
+            gold_hit = [any(is_hit(g, c) for g in q["gold"]) for c in todo]
+            with ThreadPoolExecutor(8) as ex:  # one judge call per non-gold chunk, 8 at a time
+                graded = list(ex.map(lambda c: grade(q, c, model), [c for c, h in zip(todo, gold_hit) if not h]))
+            graded.reverse()
+            for c, hit in zip(todo, gold_hit):
+                if hit:
                     g = {"grade": None, "reason": "gold"}
                 else:
-                    g, cost = grade(q, c, model)
+                    g, cost = graded.pop()
                     total += cost
-                row = {"question_id": q["id"], "chunk_id": cid, "work_id": c["work_id"], "section": c["section"],
+                row = {"question_id": q["id"], "chunk_id": c["chunk_id"], "work_id": c["work_id"], "section": c["section"],
                        "grade": g["grade"], "reason": g["reason"], "quote": c["text"][:300]}
                 f.write(json.dumps(row) + "\n")
                 f.flush()
