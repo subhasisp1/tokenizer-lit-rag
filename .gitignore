@@ -1,0 +1,14 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/raw/
+data/parsed/
+data/chunks*.jsonl
+data/cache/
+data/index/
+data/download_log.csv
+logs/
+*.pdf
+*.npy

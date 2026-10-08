@@ -1,0 +1,57 @@
+"""Every path, model id and threshold in one place."""
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data"
+RAW = DATA / "raw"                      # downloaded HTML and PDF (not committed)
+PARSED = DATA / "parsed"                # one JSON per document (not committed)
+CACHE = DATA / "cache"                  # API responses (not committed)
+INDEX = DATA / "index"                  # one folder per model (not committed)
+MANIFEST = DATA / "manifest.csv"        # committed
+LABELS = DATA / "relevance_labels.jsonl"  # committed: cached classifier labels
+CHUNKS = DATA / "chunks.jsonl"          # not committed
+EVAL = ROOT / "eval"
+QUESTIONS = EVAL / "questions.jsonl"
+RESULTS = ROOT / "results"
+DOCS = ROOT / "docs"
+LOGS = ROOT / "logs"
+
+# Models (all hosted ones go through OpenRouter)
+CLASSIFIER_MODEL = "google/gemini-2.5-flash-lite"
+ANSWER_MODEL = "anthropic/claude-haiku-4.5"
+JUDGE_MODEL = "google/gemini-2.5-flash"
+EMBED_MODELS = {
+    "bge": "BAAI/bge-base-en-v1.5",        # general, local
+    "scincl": "malteos/scincl",            # scientific, local
+    "qwen-or": "qwen/qwen3-embedding-8b",  # modern, hosted via OpenRouter
+}
+BGE_QUERY_PREFIX = "Represent this sentence for searching relevant passages: "
+QWEN_QUERY_INSTRUCTION = (
+    "Instruct: Given a question about LLM tokenization research, retrieve passages that answer it\nQuery: "
+)
+QWEN_DIMS = 1024
+
+# Collection
+SEED = 13
+CORPUS_CAP = 1000          # max works indexed; the manifest still lists every work
+ARXIV_API_DELAY = 3.1      # seconds between arXiv API requests (terms of use: 1 per 3 s)
+FILE_DELAY = 1.0           # seconds between full-text fetches per host
+
+# Chunking
+CHUNK_TARGET_TOKENS = 350
+CHUNK_MAX_TOKENS = 480
+MIN_SECTION_WORDS = 40
+
+# Retrieval
+RETRIEVER = "hybrid-bge"   # set from results/RECOMMENDATION.md after the comparison
+DENSE_CANDIDATES = 50
+RRF_K = 60
+TOP_K = 8                  # passages shown to the answer model
+MAX_PER_WORK = 2           # R1 cap on passages from one work in the shown set
+COLLAPSE_TAU = 0.92        # R2: fold a passage whose cosine with a shown one is >= tau
+SURVEY_CAP = 1             # R3: surveys allowed in the top 5 unless the question asks for one
+
+# Chat
+ABSTAIN_SENTENCE = "The corpus does not support an answer to this question."
+ABSTAIN_DENSE_TAU = 0.0    # score gate, tuned on the dev split (0 = off)
+ABSTAIN_BM25_TAU = 0.0
