@@ -182,10 +182,17 @@ def propose(n_works, n_themes, out, seed, model):
 def grade(q, c, model):
     user = (f"Question: {query_text(q)}\nExpected answer: {q.get('expected_answer', '')}\n\n"
             f"Passage ({c['title']} | {c['section']}):\n{c['text']}")
-    text, cost = llm.chat([{"role": "system", "content": GRADE_PROMPT}, {"role": "user", "content": user}],
-                          model, GRADE_SCHEMA, temperature=0.0)
-    out = llm.parse_json(text)
-    return {"grade": int(out["grade"]), "reason": out["reason"]}, cost
+    messages = [{"role": "system", "content": GRADE_PROMPT}, {"role": "user", "content": user}]
+    cost = 0.0
+    for _ in range(2):  # a truncated or invalid JSON reply is retried once, then recorded as an error
+        text, c = llm.chat(messages, model, GRADE_SCHEMA, temperature=0.0, max_tokens=300)
+        cost += c
+        try:
+            out = llm.parse_json(text)
+            return {"grade": int(out["grade"]), "reason": out["reason"]}, cost
+        except (ValueError, KeyError, TypeError):
+            pass
+    return {"grade": None, "reason": "error: invalid judge reply"}, cost
 
 
 def pool(questions_path, retrievers, depth, out, model):
