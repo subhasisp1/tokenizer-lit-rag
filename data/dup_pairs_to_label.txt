@@ -5,172 +5,172 @@ A: [arxiv:1809.02694] (2018) Neural Machine Translation of Logographic Languages
    authors: Longtu Zhang; Mamoru Komachi
 B: [arxiv:2005.11239] (2020) Character-level Transformer-based Neural Machine Translation
    authors: Nikolay Banar; Walter Daelemans; Mike Kestemont
-LABEL: 
+LABEL: false
 
 === p02  rule says: separate  (title 82.4, authors 0.0, abstract cos 0.8277, body ratio 0.496)
 A: [arxiv:1903.00149] (2019) Chinese-Japanese Unsupervised Neural Machine Translation Using Sub-character Level Information
    authors: Longtu Zhang; Mamoru Komachi
 B: [arxiv:2005.11239] (2020) Character-level Transformer-based Neural Machine Translation
    authors: Nikolay Banar; Walter Daelemans; Mike Kestemont
-LABEL: 
+LABEL: false
 
 === p03  rule says: separate  (title 80.9, authors 0.0, abstract cos 0.8106, body ratio 0.811)
 A: [arxiv:1809.02592] (2018) Logographic Subword Model for Neural Machine Translation
    authors: Yihao Fang; Rong Zheng; Xiaodan Zhu
 B: [arxiv:1902.07250] (2019) Neural Machine Translation for Cebuano to Tagalog with Subword Unit Translation
    authors: Kristine Mae M. Adlaon; Nelson Marcos
-LABEL: 
+LABEL: false
 
 === p04  rule says: separate  (title 80.9, authors 0.0, abstract cos 0.7666, body ratio 0.994)
 A: [arxiv:1809.02592] (2018) Logographic Subword Model for Neural Machine Translation
    authors: Yihao Fang; Rong Zheng; Xiaodan Zhu
 B: [oa:W3034789084] (2020) Dynamic Programming Encoding for Subword Segmentation in Neural Machine Translation
    authors: Xuanli He; Gholamreza Haffari; Mohammad Norouzi
-LABEL: 
+LABEL: false
 
 === p05  rule says: separate  (title 83.2, authors 0.0, abstract cos 0.8733, body ratio 0.862)
 A: [arxiv:1807.09639] (2018) Finding Better Subword Segmentation for Neural Machine Translation
    authors: Yingting Wu; Hai Zhao
 B: [oa:W7126379402] (2020) Subword Segmentation and a Single Bridge Language Affect Zero-Shot Neural Machine Translation
    authors: Annette Rios; Mathias Müller; Rico Sennrich
-LABEL: 
+LABEL: false
 
 === p06  rule says: separate  (title 80.9, authors 0.0, abstract cos 0.8136, body ratio 0.867)
 A: [arxiv:1809.02592] (2018) Logographic Subword Model for Neural Machine Translation
    authors: Yihao Fang; Rong Zheng; Xiaodan Zhu
 B: [oa:W3118022667] (2020) Bilingual Subword Segmentation for Neural Machine Translation
    authors: Hiroyuki Deguchi; Masao Utiyama; Akihiro Tamura; Takashi Ninomiya; Eiichiro Sumita
-LABEL: 
+LABEL: false
 
 === p07  rule says: separate  (title 91.1, authors 0.0, abstract cos 0.8272, body ratio 0.844)
 A: [oa:W3118022667] (2020) Bilingual Subword Segmentation for Neural Machine Translation
    authors: Hiroyuki Deguchi; Masao Utiyama; Akihiro Tamura; Takashi Ninomiya; Eiichiro Sumita
 B: [oa:W4404783998] (2022) BERTSeg: BERT Based Unsupervised Subword Segmentation for Neural Machine Translation
    authors: Haiyue Song; Raj Dabre; Zhuoyuan Mao; Chenhui Chu; Sadao Kurohashi
-LABEL: 
+LABEL: false
 
 === p08  rule says: separate  (title 87.2, authors 0.0, abstract cos 0.8772, body ratio 0.687)
 A: [arxiv:1807.09639] (2018) Finding Better Subword Segmentation for Neural Machine Translation
    authors: Yingting Wu; Hai Zhao
 B: [oa:W3034789084] (2020) Dynamic Programming Encoding for Subword Segmentation in Neural Machine Translation
    authors: Xuanli He; Gholamreza Haffari; Mohammad Norouzi
-LABEL: 
+LABEL: false
 
 === p09  rule says: separate  (title 82.4, authors 0.0, abstract cos 0.8086, body ratio 0.808)
 A: [arxiv:1806.09030] (2018) On Adversarial Examples for Character-Level Neural Machine Translation
    authors: Javid Ebrahimi; Daniel Lowd; Dejing Dou
 B: [arxiv:2005.11239] (2020) Character-level Transformer-based Neural Machine Translation
    authors: Nikolay Banar; Walter Daelemans; Mike Kestemont
-LABEL: 
+LABEL: false
 
 === p10  rule says: separate  (title 80.0, authors 0.0, abstract cos 0.8244, body ratio 0.814)
 A: [arxiv:2406.09717] (2024) UniBridge: A Unified Approach to Cross-Lingual Transfer Learning for Low-Resource Languages
    authors: Trinh Pham; Khoi M. Le; Luu Anh Tuan
 B: [arxiv:2509.17493] (2025) Enhancing Cross-Lingual Transfer through Reversible Transliteration: A Huffman-Based Approach for Low-Resource Languages
    authors: Wenhao Zhuang; Yuan Sun; Xiaobing Zhao
-LABEL: 
+LABEL: false
 
 === p11  rule says: separate  (title 80.9, authors 0.0, abstract cos 0.7683, body ratio 0.938)
 A: [arxiv:1809.02592] (2018) Logographic Subword Model for Neural Machine Translation
    authors: Yihao Fang; Rong Zheng; Xiaodan Zhu
 B: [arxiv:2005.06606] (2020) Dynamic Programming Encoding for Subword Segmentation in Neural Machine Translation
    authors: Xuanli He; Gholamreza Haffari; Mohammad Norouzi
-LABEL: 
+LABEL: false
 
 === p12  rule says: separate  (title 87.0, authors 0.0, abstract cos 0.8543, body ratio 0.925)
 A: [oa:W3118022667] (2020) Bilingual Subword Segmentation for Neural Machine Translation
    authors: Hiroyuki Deguchi; Masao Utiyama; Akihiro Tamura; Takashi Ninomiya; Eiichiro Sumita
 B: [oa:W7126379402] (2020) Subword Segmentation and a Single Bridge Language Affect Zero-Shot Neural Machine Translation
    authors: Annette Rios; Mathias Müller; Rico Sennrich
-LABEL: 
+LABEL: false
 
 === p13  rule says: separate  (title 86.6, authors 0.0, abstract cos 0.8348, body ratio 0.862)
 A: [arxiv:1608.04738] (2016) An Efficient Character-Level Neural Machine Translation
    authors: Shenjian Zhao; Zhihua Zhang
 B: [arxiv:1805.01565] (2018) Incorporating Chinese Radicals Into Neural Machine Translation: Deeper Than Character Level
    authors: Lifeng Han; Shaohui Kuang
-LABEL: 
+LABEL: false
 
 === p14  rule says: separate  (title 91.1, authors 0.0, abstract cos 0.8614, body ratio 0.815)
 A: [arxiv:2202.13590] (2022) LCP-dropout: Compression-based Multiple Subword Segmentation for Neural Machine Translation
    authors: Keita Nonaka; Kazutaka Yamanouchi; Tomohiro I; Tsuyoshi Okita; Kazutaka Shimada; Hiroshi Sakamoto
 B: [oa:W3118022667] (2020) Bilingual Subword Segmentation for Neural Machine Translation
    authors: Hiroyuki Deguchi; Masao Utiyama; Akihiro Tamura; Takashi Ninomiya; Eiichiro Sumita
-LABEL: 
+LABEL: false
 
 === p15  rule says: separate  (title 90.9, authors 0.6, abstract cos 0.9829, body ratio 0.744)
 A: [arxiv:2506.03523] (2025) TokAlign: Efficient Vocabulary Adaptation via Token Alignment
    authors: Chong Li; Jiajun Zhang; Chengqing Zong
 B: [arxiv:2605.13429] (2026) TokAlign++: Advancing Vocabulary Adaptation via Better Token Alignment
    authors: Chong Li; Yingzhuo Deng; Wen Yang; Jiajun Zhang; Chengqing Zong
-LABEL: 
+LABEL: false
 
 === p16  rule says: separate  (title 86.6, authors 0.0, abstract cos 0.9038, body ratio 0.716)
 A: [arxiv:1603.06147] (2016) A Character-Level Decoder without Explicit Segmentation for Neural Machine Translation
    authors: Junyoung Chung; Kyunghyun Cho; Yoshua Bengio
 B: [arxiv:1608.04738] (2016) An Efficient Character-Level Neural Machine Translation
    authors: Shenjian Zhao; Zhihua Zhang
-LABEL: 
+LABEL: false
 
 === p17  rule says: separate  (title 83.2, authors 0.0, abstract cos 0.8733, body ratio 0.862)
 A: [arxiv:1807.09639] (2018) Finding Better Subword Segmentation for Neural Machine Translation
    authors: Yingting Wu; Hai Zhao
 B: [oa:W3112593586] (2020) Subword segmentation and a single bridge language affect zero-shot neural machine translation
    authors: Annette Rios; Mathias Müller; Rico Sennrich
-LABEL: 
+LABEL: false
 
 === p18  rule says: separate  (title 81.5, authors 0.125, abstract cos 0.816, body ratio 0.748)
 A: [arxiv:2106.00400] (2021) Sub-Character Tokenization for Chinese Pretrained Language Models
    authors: Chenglei Si; Zhengyan Zhang; Yingfa Chen; Fanchao Qi; Xiaozhi Wang; Zhiyuan Liu; Yasheng Wang; Qun Liu; Maosong Sun
 B: [arxiv:2310.12751] (2023) Character-level Chinese Backpack Language Models
    authors: Hao Sun; John Hewitt
-LABEL: 
+LABEL: false
 
 === p19  rule says: separate  (title 83.9, authors 0.1, abstract cos 0.8227, body ratio 0.966)
 A: [arxiv:2410.19730] (2024) Counting Ability of Large Language Models and Impact of Tokenization
    authors: Xiang Zhang; Juntai Cao; Chenyu You
 B: [arxiv:2610.01127] (2026) Counting and Min-Cost Encoding for Tokenization in Large Language Models
    authors: Shuming Shi; Xiang Zhang; Hao Yu; Wenbo Fei; Changjian Wang; Zhan Wang; Guoqing Pang; Guangye Yu; Quan Lu; Ning Jiang
-LABEL: 
+LABEL: false
 
 === p20  rule says: separate  (title 86.6, authors 0.333, abstract cos 0.8527, body ratio 0.799)
 A: [arxiv:1608.04738] (2016) An Efficient Character-Level Neural Machine Translation
    authors: Shenjian Zhao; Zhihua Zhang
 B: [arxiv:1809.02694] (2018) Neural Machine Translation of Logographic Languages Using Sub-character Level Information
    authors: Longtu Zhang; Mamoru Komachi
-LABEL: 
+LABEL: false
 
 === p21  rule says: merge  (title 100.0, authors 1.0, abstract cos 0.9983, body ratio 0.95)
 A: [arxiv:2011.01703] (2020) Subword Segmentation and a Single Bridge Language Affect Zero-Shot Neural Machine Translation
    authors: Annette Rios; Mathias Müller; Rico Sennrich
 B: [oa:W3112593586] (2020) Subword segmentation and a single bridge language affect zero-shot neural machine translation
    authors: Annette Rios; Mathias Müller; Rico Sennrich
-LABEL: 
+LABEL: true
 
 === p22  rule says: merge  (title 100.0, authors 1.0, abstract cos 1.0, body ratio 0.935)
 A: [arxiv:2306.15268] (2023) Can Pretrained Language Models Derive Correct Semantics from Corrupt Subwords under Noise?
    authors: Xinzhe Li; Ming Liu; Shang Gao
 B: [oa:W4385718045] (2023) Can Pretrained Language Models Derive Correct Semantics from Corrupt Subwords under Noise?
    authors: Xinzhe Li; Ming Liu; Shang Bing Gao
-LABEL: 
+LABEL: true
 
 === p23  rule says: merge  (title 100.0, authors 1.0, abstract cos 1.0, body ratio 0.923)
 A: [arxiv:2602.05347] (2026) How Do Language Models Acquire Character-Level Information?
    authors: Soma Sato; Ryohei Sasano
 B: [oa:W7140143844] (2026) How Do Language Models Acquire Character-Level Information?
    authors: Soma Sato; Ryohei Sasano
-LABEL: 
+LABEL: true
 
 === p24  rule says: merge  (title 100.0, authors 1.0, abstract cos 0.9933, body ratio 0.944)
 A: [arxiv:2606.20993] (2026) Phonemes to the Rescue: Multilingual Tokenization Based on International Phonetic Alphabet
    authors: Milan Miletić; Julie Kallini; Ekaterina Shutova
 B: [oa:W7166818500] (2026) Phonemes to the Rescue: Multilingual Tokenization Based on International Phonetic Alphabet
    authors: Milan Miletić; Julie Kallini; Ekaterina Shutova
-LABEL: 
+LABEL: true
 
 === p25  rule says: merge  (title 100.0, authors 1.0, abstract cos 0.9978, body ratio 1.0)
 A: [oa:W3112593586] (2020) Subword segmentation and a single bridge language affect zero-shot neural machine translation
    authors: Annette Rios; Mathias Müller; Rico Sennrich
 B: [oa:W7126379402] (2020) Subword Segmentation and a Single Bridge Language Affect Zero-Shot Neural Machine Translation
    authors: Annette Rios; Mathias Müller; Rico Sennrich
-LABEL: 
+LABEL: true

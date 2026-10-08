@@ -369,6 +369,7 @@ def manifest_row(c, label):
         label, reason = None, "incomplete_metadata"  # an OpenAlex record without authors or year
     return {k: c.get(k, "") for k in COPIED} | {
         "work_id": c["arxiv_id"] if c["source"] == "arxiv" else c["record_id"],
+        "openalex_id": c["record_id"][3:] if c["record_id"].startswith("oa:") else c.get("openalex_id", ""),
         "authors": "; ".join(c.get("authors", [])), "matched_queries": "|".join(c.get("matched_queries", [])),
         "stage1_result": s1, "in_scope": "true" if label and label["in_scope"] is True else "false",
         "topic": label["topic"] if label else "", "paper_type": label["paper_type"] if label else "",
