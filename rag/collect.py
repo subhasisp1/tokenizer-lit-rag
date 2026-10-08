@@ -387,6 +387,27 @@ def build_manifest():
     print(f"wrote {config.MANIFEST}: {len(rows)} rows")
 
 
+def cap(n, seed):
+    """Keep at most n in-scope works for indexing: seeds, then title-rule hits, then a seeded random fill."""
+    rows = manifest.load()
+    main = [r for r in rows if manifest.is_true(r["in_scope"]) and not r.get("duplicate_of")]
+    title_hit = lambda r: any(p.search(r["title"].lower()) for p in INCLUDE.values())
+    keep = [r for r in main if r["arxiv_id"] in SEEDS]
+    core = [r for r in main if r not in keep and title_hit(r)]
+    rest = [r for r in main if r not in keep and not title_hit(r)]
+    random.Random(seed).shuffle(core)
+    random.Random(seed).shuffle(rest)
+    kept = {r["record_id"] for r in keep + (core + rest)[:max(0, n - len(keep))]}
+    for r in main:
+        if r["record_id"] not in kept:
+            r["in_index"], r["not_indexed_reason"] = "false", "corpus_cap"
+        elif r.get("not_indexed_reason") == "corpus_cap":
+            r["in_index"], r["not_indexed_reason"] = "", ""
+    manifest.save(rows)
+    print(f"in-scope works {len(main)}: kept {len(kept)} (seeds {len(keep)}, title hits {min(len(core), n - len(keep))}), "
+          f"capped {len(main) - len(kept)}")
+
+
 def summary():
     rows = [r for r in manifest.load() if not r.get("duplicate_of")]  # collected documents only
     included = [r for r in rows if manifest.is_true(r["in_scope"])]
@@ -416,6 +437,9 @@ def main():
     s.add_argument("--seed", type=int, default=config.SEED)
     sub.add_parser("agreement")
     sub.add_parser("manifest").add_argument("--summary", action="store_true")
+    k = sub.add_parser("cap")
+    k.add_argument("--n", type=int, default=config.CORPUS_CAP)
+    k.add_argument("--seed", type=int, default=config.SEED)
     args = ap.parse_args()
     if args.cmd == "arxiv":
         collect_arxiv(args.families.split(","), set(filter(None, args.years.split(","))))
@@ -427,6 +451,8 @@ def main():
         sample(args.n, args.seed)
     elif args.cmd == "agreement":
         agreement()
+    elif args.cmd == "cap":
+        cap(args.n, args.seed)
     elif args.cmd == "manifest":
         build_manifest()
         if args.summary:

@@ -104,7 +104,7 @@ def test_classify_cache_and_errors(tmp_data, monkeypatch):
     n, failures, cost = collect.classify()
     assert (n, failures, round(cost, 6)) == (5, 0, 0.0005)
     labels = collect.load_labels()
-    assert len(labels) == 5 and labels["arxiv:2401.00000"]["prompt_version"] == "v1"
+    assert len(labels) == 5 and labels["arxiv:2401.00000"]["prompt_version"] == collect.PROMPT_VERSION
     assert collect.classify() == (0, 0, 0.0)  # cached: no calls
 
     collect.write_jsonl(collect.CANDIDATE_FILES[1], [candidate(7) | {"record_id": "oa:W7", "source": "acl"}])

@@ -157,7 +157,8 @@ def download_row(session, row):
 
 
 def is_main(r):
-    return manifest.is_true(r["in_scope"]) and r.get("arxiv_id") and r.get("source") not in EXTRA_LICENSE
+    return (manifest.is_true(r["in_scope"]) and r.get("arxiv_id") and r.get("source") not in EXTRA_LICENSE
+            and r.get("not_indexed_reason") != "corpus_cap")
 
 
 def download_acl_only(session, row):
