@@ -208,7 +208,8 @@ def main():
     start, rows = time.monotonic(), manifest.load()
     ids = set(a.ids.split(",")) if a.ids else None
     acl_only = [r for r in rows if manifest.is_true(r["in_scope"]) and r.get("source") == "acl"
-                and r.get("fulltext_url") and (a.force or not r.get("fulltext_status"))]
+                and r.get("fulltext_url") and r.get("not_indexed_reason") != "corpus_cap"
+                and (a.force or not r.get("fulltext_status"))]
     todo = ([r for r in rows if is_main(r) and (ids is None or r["arxiv_id"] in ids)
              and (a.force or not r.get("fulltext_status"))] + (acl_only if ids is None else []))[:a.limit]
     HTML_DIR.mkdir(parents=True, exist_ok=True)

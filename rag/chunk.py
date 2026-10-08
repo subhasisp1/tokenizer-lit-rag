@@ -121,6 +121,8 @@ def main():
     for path in sorted(config.PARSED.glob("*.json")):
         doc = json.loads(path.read_text(encoding="utf-8"))
         title, year, venue, canonical, row = metadata(doc, rows_by_id)
+        if row is not None and row.get("not_indexed_reason") == "corpus_cap":
+            continue  # downloaded but outside the capped corpus
         for n, (kind, section, text) in enumerate(chunk_doc(doc, title)):
             embed_text = f"{title} | {section}\n{text}"
             c = {"chunk_id": f"{doc['doc_id']}#{n}", "doc_id": doc["doc_id"],
