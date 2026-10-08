@@ -160,6 +160,14 @@ def is_main(r):
     return manifest.is_true(r["in_scope"]) and r.get("arxiv_id") and r.get("source") not in EXTRA_LICENSE
 
 
+def download_acl_only(session, row):
+    """An ACL-only work (source acl, no arXiv id): its fulltext_url is the Anthology PDF."""
+    path = PDF_DIR / f"oa_{row['record_id'].split(':', 1)[1]}.pdf"
+    ok = path.exists() or fetch(session, path.stem, "pdf", row["fulltext_url"], path, False)
+    row["fulltext_status"] = "pdf" if ok else ("" if ok is None else "none")
+    row["license"] = row.get("license") or EXTRA_LICENSE["acl_copy"]
+
+
 def extra_jobs(rows):
     """(record_id, source, url, path, main row) for every v1 and ACL PDF we could add."""
     for r in filter(is_main, rows):
@@ -198,16 +206,18 @@ def main():
     config.MANIFEST = Path(a.manifest)
     start, rows = time.monotonic(), manifest.load()
     ids = set(a.ids.split(",")) if a.ids else None
-    todo = [r for r in rows if is_main(r) and (ids is None or r["arxiv_id"] in ids)
-            and (a.force or not r.get("fulltext_status"))][:a.limit]
+    acl_only = [r for r in rows if manifest.is_true(r["in_scope"]) and r.get("source") == "acl"
+                and r.get("fulltext_url") and (a.force or not r.get("fulltext_status"))]
+    todo = ([r for r in rows if is_main(r) and (ids is None or r["arxiv_id"] in ids)
+             and (a.force or not r.get("fulltext_status"))] + (acl_only if ids is None else []))[:a.limit]
     HTML_DIR.mkdir(parents=True, exist_ok=True)
     PDF_DIR.mkdir(parents=True, exist_ok=True)
     session = make_session()
     for n, row in enumerate(todo, 1):
-        print(f"[{n}/{len(todo)}] {row['arxiv_id']}v{row['arxiv_latest_version']}: html, ar5iv, pdf")
+        print(f"[{n}/{len(todo)}] {row['record_id']}: " + ("acl pdf" if row["source"] == "acl" else "html, ar5iv, pdf"))
         if a.dry_run:
             continue
-        download_row(session, row)
+        download_acl_only(session, row) if row["source"] == "acl" else download_row(session, row)
         print(f"  -> {row['fulltext_status'] or 'retry later'} | {row['license']}")
         if n % 50 == 0:
             manifest.save(rows)

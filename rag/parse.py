@@ -47,6 +47,8 @@ def ids_for(tag):
     """File tag -> (doc_id, work_id)."""
     if tag.startswith("acl_"):
         return f"acl:{tag[4:]}", tag[4:]
+    if tag.startswith("oa_"):  # an ACL-only work found through OpenAlex: its record id is its work id
+        return f"oa:{tag[3:]}", f"oa:{tag[3:]}"
     return f"arxiv:{tag}", re.sub(r"v\d+$", "", tag)
 
 
@@ -212,7 +214,7 @@ def tags_to_parse(raw_dir, manifest_path):
         if r.get("fulltext_status") not in ("html", "ar5iv", "pdf"):
             continue
         kind, rid = r["record_id"].split(":", 1)
-        tags.append(f"acl_{rid}" if kind == "acl" else rid if re.search(r"v\d+$", rid)
+        tags.append(f"{kind}_{rid}" if kind in ("acl", "oa") else rid if re.search(r"v\d+$", rid)
                     else f"{r['arxiv_id']}v{r['arxiv_latest_version']}")
     return tags
 
