@@ -181,7 +181,7 @@ when there is history (shown to the user as "searching: …"), 8 passages are re
 index, cap 4 per work), and `anthropic/claude-haiku-4.5` answers from the numbered passages with a
 citation after every factual sentence, or with the exact sentence "The corpus does not support an
 answer to this question." Citations are validated in code (a `[n]` outside the shown range is removed
-and marked), then rendered as "Title (Year, Venue), § Section". The first version abstained on 16 of
+and marked), then rendered as "Title (Year, Venue), § Section". Answer calls disable the model's hidden reasoning, because a model that thinks by default can spend the whole answer budget before writing a visible word. The first version abstained on 16 of
 36 test questions, 10 of them wrongly: 7 times the model refused although the right paper was shown
 and 3 times a score gate tuned on four dev questions fired. Version 2 answers from partial evidence and
 abstains only when nothing bears on the question, uses the cap of 4, and drops the gate (on the dev
@@ -189,7 +189,7 @@ split the prompt alone abstains on all four unanswerable questions and none of t
 
 A sentence-level judge from a different model family (`google/gemini-2.5-flash`) sees only the shown
 passages and the expected answer. A second, independent labelling pass over 78 sentences from 20 answers
-gives the judge's agreement: on the 62 sentences the two passes could be aligned (11 differed in sentence splitting), they agree on 56 (accuracy 0.90). Four disagreements are sentences the second pass calls partial because the model added an inference to a quoted fact ("performance implications differ by task") while the judge called them supported; in the other two the judge was the stricter one (one partial, one unsupported). Cohen's kappa is near zero because almost every sentence is "supported" in both passes (chance agreement 0.9), so the counts are reported instead; on balance the judge is slightly the more lenient, so the grounded rates below are an upper bound by a few percent
+gives the judge's agreement: on the 62 sentences the two passes could be aligned (11 differed in sentence splitting), they agree on 56 (accuracy 0.90). Four disagreements are sentences the second pass calls partial because the model added an inference to a quoted fact ("performance implications differ by task") while the judge called them supported; in the other two the judge was the stricter one (one partial, one unsupported). Cohen's kappa is near zero because almost every sentence is "supported" in both passes (chance agreement 0.9), so the counts are reported instead; on balance the judge is slightly the more lenient, so the grounded rates below are an upper bound by a few percent. A second judge run at temperature 0 over the same answers moved one verdict: fully grounded 0.722 to 0.694, every other metric within 0.02 (`results/chat_quality_rerun.csv`)
 
 | fully grounded answers | sentences supported | citation precision | citation coverage | correct / partial / wrong | abstained on 6 unanswerable | false abstentions on 30 | invalid citations | cost per answer | p50 latency |
 |---|---|---|---|---|---|---|---|---|---|
