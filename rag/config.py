@@ -24,6 +24,7 @@ def parsed_path(doc_id):
 # Models (all hosted ones go through OpenRouter)
 CLASSIFIER_MODEL = "google/gemini-2.5-flash"  # flash-lite over-included on a 40-paper dry run (2026-10-08)
 ANSWER_MODEL = "anthropic/claude-haiku-4.5"
+ANSWER_REASONING = {"enabled": False}  # the answer budget must not go to hidden reasoning (claude-haiku-5.5 thinks by default)
 JUDGE_MODEL = "google/gemini-2.5-flash"
 EMBED_MODELS = {
     "bge": "BAAI/bge-base-en-v1.5",        # general, local

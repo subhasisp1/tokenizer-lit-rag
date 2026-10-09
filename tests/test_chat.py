@@ -17,7 +17,7 @@ def stub(monkeypatch):
     """Queue replies with stub.replies; calls and retrieve queries are recorded."""
     rec = {"replies": [], "calls": [], "queries": []}
 
-    def fake_chat(messages, model, schema=None, temperature=0.0, max_tokens=1024):
+    def fake_chat(messages, model, schema=None, temperature=0.0, max_tokens=1024, **kw):
         rec["calls"].append({"messages": messages, "max_tokens": max_tokens})
         return rec["replies"].pop(0), 0.001
 

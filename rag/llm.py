@@ -41,10 +41,13 @@ def _log(kind, model, usage):
         f.write(json.dumps(row) + "\n")
 
 
-def chat(messages, model, schema=None, temperature=0.0, max_tokens=1024):
-    """Return (text, cost_usd). With `schema` (a JSON schema dict) the reply is strict JSON."""
+def chat(messages, model, schema=None, temperature=0.0, max_tokens=1024, reasoning=None):
+    """Return (text, cost_usd). With `schema` (a JSON schema dict) the reply is strict JSON.
+    `reasoning` is OpenRouter's reasoning control, e.g. {"enabled": False} for models that think by default."""
     body = {"model": model, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "usage": {"include": True}}
+    if reasoning is not None:
+        body["reasoning"] = reasoning
     if schema is not None:
         body["response_format"] = {"type": "json_schema",
                                    "json_schema": {"name": "out", "strict": True, "schema": schema}}
@@ -52,7 +55,7 @@ def chat(messages, model, schema=None, temperature=0.0, max_tokens=1024):
     data = _post("/chat/completions", body)
     usage = data.get("usage") or {}
     _log("chat", model, usage)
-    return data["choices"][0]["message"]["content"], float(usage.get("cost") or 0.0)
+    return data["choices"][0]["message"].get("content") or "", float(usage.get("cost") or 0.0)  # None when a model spent max_tokens on hidden reasoning
 
 
 def embed(texts, model, provider=None):

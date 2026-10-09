@@ -55,7 +55,7 @@ def rewrite(history, user_msg, model):
         return user_msg, 0.0
     msg = f"{dialogue(history[-6:])}\nLast message: {user_msg}"
     text, cost = llm.chat([{"role": "system", "content": REWRITE_PROMPT}, {"role": "user", "content": msg}],
-                          model, temperature=0.0, max_tokens=100)
+                          model, temperature=0.0, max_tokens=100, reasoning=config.ANSWER_REASONING)
     return text.strip().strip("\"'").strip() or user_msg, cost
 
 
@@ -115,7 +115,7 @@ def answer(history, user_msg, retriever=config.RETRIEVER, k=config.TOP_K, model=
         context += f"\n\nConversation so far:\n{dialogue(history[-4:])}"
     msgs = [{"role": "system", "content": ANSWER_PROMPT},
             {"role": "user", "content": f"{context}\n\nQuestion: {user_msg}"}]
-    raw, answer_cost = llm.chat(msgs, model, temperature=0.0, max_tokens=400)
+    raw, answer_cost = llm.chat(msgs, model, temperature=0.0, max_tokens=400, reasoning=config.ANSWER_REASONING)
     t3 = time.time()
     text, cited, invalid, uncited = check_citations(raw.strip(), len(sources))
     abstained = raw.lstrip(" \t\n\"'").startswith(config.ABSTAIN_SENTENCE)
