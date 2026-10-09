@@ -195,6 +195,15 @@ gives the judge's agreement: on the 62 sentences the two passes could be aligned
 |---|---|---|---|---|---|---|---|---|---|
 | 0.72 | 0.985 | 0.82 | 0.84 | 0.75 / 0.25 / 0.00 | 6 | 2 | 0 | $0.0034 | 3.4 s |
 
+A second answer model, `anthropic/claude-haiku-5.5`, was run on the same 36 questions with the same retriever and judge (`results/chat_quality.csv`, second row):
+
+| answer model | fully grounded | sentences supported | citation precision | correct / partial | false abstentions | invalid citations | cost per answer | p50 latency |
+|---|---|---|---|---|---|---|---|---|
+| claude-haiku-4.5 (default) | 0.72 | 0.985 | 0.82 | 0.75 / 0.25 | 2 | 0 | $0.0034 | 3.4 s |
+| claude-haiku-5.5 | 0.69 | 0.966 | 0.81 | 0.60 / 0.40 | 0 | 2 | $0.0005 | 2.2 s |
+
+The newer model is seven times cheaper, faster and abstains perfectly, but answers less correctly and twice cited a passage number it was not shown (caught and removed by the validator), so the default stays with the older model; the trade is a one-line change in `rag/config.py`.
+
 Follow-ups are the weak spot. Scoring the five follow-ups under four query forms gives Recall@5 0.40
 for the raw follow-up, 0.20 for parent-plus-follow-up concatenation, 0.40 for the chatbot's rewrite and
 0.80 for the gold standalone wording (`results/followups.csv`): the rewrite beats concatenation but
