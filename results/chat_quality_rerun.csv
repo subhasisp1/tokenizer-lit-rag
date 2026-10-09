@@ -1,0 +1,2 @@
+model,retriever,n,fully_grounded_rate,sentence_support_rate,partial_rate,citation_precision,citation_coverage,correctness_correct,correctness_partial,unanswerable_n,abstained_on_unanswerable,answered_unanswerable,answerable_n,abstained_on_answerable,answered_answerable,abstention_recall,false_abstention_rate,abstention_f1,gate_abstentions,invalid_citations_total,unjudged,cost_per_answer,p50_latency_s
+anthropic/claude-haiku-4.5,bm25,36,0.6944,0.9692,0.0308,0.8226,0.8308,0.75,0.25,6,6,0,30,2,28,1.0,0.0667,0.8571,0,0,0,0.0034,3.384
